@@ -7,7 +7,7 @@
 **HaremalOS** is designed for users who want the power of Arch Linux without the manual friction of setting up a modern Wayland environment. It features a curated selection of tools focused on efficiency, aesthetics, and hardware synergy.
 
 ## 💡 IDEA
-GAMEDEV & GAMING READY
+GAMEDEV & GAMING READY<br>
 Minimalistic Power Features<br>
 Simple Usage & Modern Look<br>
 All Apps Integrated With System<br>
