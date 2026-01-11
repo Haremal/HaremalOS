@@ -134,6 +134,14 @@ mkdir -p /etc/ly
 cat <<INI > /etc/ly/config.ini
 [server]
 session = hyprland
+animation = 2
+bigclock = true
+
+[color]
+# 0 = Pitch Black Background
+bg = 0
+# 5 = Eerie Purple Foreground
+fg = 5
 INI
 
 mkdir -p /usr/share/wayland-sessions
