@@ -58,11 +58,6 @@ read -p "Install Blender? (y/n) " I_BLENDER
 read -p "Install Reaper? (y/n) " I_REAPER
 read -p "Install OBS Studio? (y/n) " I_OBS
 read -p "Install Unity Hub? (y/n) " I_UNITY
-export I_STEAM
-export I_BLENDER
-export I_REAPER
-export I_OBS
-export I_UNITY
 
 # 7. FORMATTING (Fixed path variables)
 echo "Formatting started..."
@@ -84,7 +79,6 @@ mount "$HOME_P" /mnt/home
 
 echo "SUCCESS: Partitions mounted to /mnt"
 
-
 # 9. INSTALLATION (The "Everything" List)
 pacstrap -K /mnt base linux linux-firmware sudo curl wget amd-ucode --noconfirm --needed
 
@@ -104,9 +98,16 @@ cp "$SCRIPT_DIR/system_setup.sh" /mnt/
 cp "$SCRIPT_DIR/system_apps.sh" /mnt/
 cp "$SCRIPT_DIR/system_config.sh" /mnt/
 chmod +x /mnt/*.sh
-arch-chroot /mnt /bin/bash /system_setup.sh
-arch-chroot /mnt /bin/bash /system_apps.sh
-arch-chroot /mnt /bin/bash /system_config.sh
+arch-chroot /mnt /bin/bash -c "
+  export I_STEAM='$I_STEAM'
+  export I_BLENDER='$I_BLENDER'
+  export I_REAPER='$I_REAPER'
+  export I_OBS='$I_OBS'
+  export I_UNITY='$I_UNITY'
+  /system_setup.sh
+  /system_apps.sh
+  /system_config.sh
+"
 rm /mnt/*.sh
 
 # TODO pacman -U --noconfirm --needed [github-haremal-browser-release]

@@ -17,6 +17,9 @@ HOSTS
 sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf kms block filesystems keyboard fsck)/' /etc/mkinitcpio.conf
 mkinitcpio -P
 
+echo '%wheel ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/wheel-nopasswd
+chmod 440 /etc/sudoers.d/wheel-nopasswd
+
 # --- 2. POLKIT ---
 cat <<POLKIT > /etc/polkit-1/rules.d/49-nopasswd.rules
 polkit.addRule(function(action, subject) {
@@ -134,5 +137,6 @@ systemctl disable getty@tty2.service
 systemctl enable ly@tty2.service
 systemctl enable NetworkManager
 systemctl enable bluetooth.service
+systemctl enable fstrim.timer
 sed -i 's/#AutoEnable=false/AutoEnable=true/' /etc/bluetooth/main.conf 2>/dev/null || true
 yes | sensors-detect --auto > /dev/null || true
