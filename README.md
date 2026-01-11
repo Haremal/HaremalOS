@@ -7,12 +7,12 @@
 **HaremalOS** is designed for users who want the power of Arch Linux without the manual friction of setting up a modern Wayland environment. It features a curated selection of tools focused on efficiency, aesthetics, and hardware synergy.
 
 ## 💡 IDEA
-- GAMEDEV & GAMING READY
-- Minimalistic Power Features
-- Simple Usage & Modern Look
-- All Apps Integrated With System
-- Lightweight OS & High Performance
-- Everything controlled via ONE. SINGULAR. APP.
+GAMEDEV & GAMING READY
+Minimalistic Power Features
+Simple Usage & Modern Look
+All Apps Integrated With System
+Lightweight OS & High Performance
+Everything controlled via ONE. SINGULAR. APP.
 
 ## ✨ Key Features
 * **Compositor:** [Hyprland](https://hyprland.org/) (Dynamic Tiling Wayland Compositor)
