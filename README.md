@@ -8,11 +8,11 @@
 
 ## 💡 IDEA
 GAMEDEV & GAMING READY
-Minimalistic Power Features
-Simple Usage & Modern Look
-All Apps Integrated With System
-Lightweight OS & High Performance
-Everything controlled via ONE. SINGULAR. APP.
+Minimalistic Power Features<br>
+Simple Usage & Modern Look<br>
+All Apps Integrated With System<br>
+Lightweight OS & High Performance<br>
+Everything controlled via ONE. SINGULAR. APP.<br>
 
 ## ✨ Key Features
 * **Compositor:** [Hyprland](https://hyprland.org/) (Dynamic Tiling Wayland Compositor)
