@@ -6,6 +6,14 @@
 ## 🚀 Overview
 **HaremalOS** is designed for users who want the power of Arch Linux without the manual friction of setting up a modern Wayland environment. It features a curated selection of tools focused on efficiency, aesthetics, and hardware synergy.
 
+## IDEA
+* GAMEDEV & GAMING READY
+* Minimalistic Power Features
+* Simple Usage & Modern Look
+* All Apps Integrated With System
+* Lightweight OS & High Performance
+* Everything controlled via ONE. SINGULAR. APP.
+
 ## ✨ Key Features
 * **Compositor:** [Hyprland](https://hyprland.org/) (Dynamic Tiling Wayland Compositor)
 * **Performance:** Hard-coded optimizations for **AMD CPUs** and **AMD GPUs** (Mesa/Vulkan).
@@ -22,7 +30,7 @@
 | **AUR Helper** | Paru (Rust-based) |
 | **Audio** | Pipewire / Wireplumber |
 
-## 📥 Installation
+## 📥 Installation (***NOT YET AVAIABLE***)
 1. **Download** the `HaremalOS.iso` from the [Releases](https://github.com/Haremal/HaremalOS/releases) tab.
 2. **Flash** the ISO onto a USB drive (using Etcher or `dd`).
 3. **Connect** your PC to wired internet (Ethernet).
