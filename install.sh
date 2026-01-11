@@ -98,16 +98,16 @@ cp "$SCRIPT_DIR/system_setup.sh" /mnt/
 cp "$SCRIPT_DIR/system_apps.sh" /mnt/
 cp "$SCRIPT_DIR/system_config.sh" /mnt/
 chmod +x /mnt/*.sh
-arch-chroot /mnt /bin/bash -c "
+arch-chroot /mnt /bin/bash <<EOF
   export I_STEAM='$I_STEAM'
   export I_BLENDER='$I_BLENDER'
   export I_REAPER='$I_REAPER'
   export I_OBS='$I_OBS'
   export I_UNITY='$I_UNITY'
-  /system_setup.sh
-  /system_apps.sh
-  /system_config.sh
-"
+  ./system_setup.sh
+  ./system_apps.sh
+  ./system_config.sh
+EOF
 rm /mnt/*.sh
 
 # TODO pacman -U --noconfirm --needed [github-haremal-browser-release]
