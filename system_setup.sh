@@ -38,7 +38,6 @@ if [ ! -f /swapfile ]; then
     fallocate -l 8G /swapfile
     chmod 600 /swapfile
     mkswap /swapfile
-    # Note: swapon might fail in some chroot environments; fstab handles it on reboot
-    swapon /swapfile
+    swapon /swapfile || true
     echo "/swapfile none swap defaults 0 0" >> /etc/fstab
 fi
