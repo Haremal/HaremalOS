@@ -114,4 +114,3 @@ rm /mnt/*.sh
 # TODO pacman -U --noconfirm --needed [github-haremal-browser-release]
 # TODO pacman -U --noconfirm --needed [github-haremalos-manager-release]
 # TODO exec-once = haremalos-manager
-# TODO lscpu | grep -iq "AMD" && lspci | grep -iq "VGA.*AMD" || { echo "Error: AMD CPU & GPU required."; exit 1; }
