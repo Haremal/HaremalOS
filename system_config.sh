@@ -68,8 +68,8 @@ PROFILE
 
 mkdir -p /etc/skel/Settings/Config/hypr
 cat <<HYPR > /etc/skel/Settings/Config/hypr/hyprland.conf
-bind = SUPER+R, exec, hyprlauncher
-bind = SUPER+SPACE, exec, wezterm
+bind = SUPER, R, exec, hyprlauncher
+bind = SUPER, SPACE, exec, wezterm
 bind = PRINT, exec, hyprshot -m region
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = /usr/lib/polkit-kde-authentication-agent-1
