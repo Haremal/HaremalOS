@@ -33,7 +33,7 @@ POLKIT
 mkdir -p /etc/skel/Media/{Documents,Pictures,Videos,Music,Downloads} 
 mkdir -p /etc/skel/Settings/{Config,Data} /etc/skel/Projects
 
-cat <<PROFILE > /etc/skel/.profile
+cat <<PROFILE > /etc/skel/.bash_profile
 # --- PATH & XDG ---
 export XDG_CONFIG_HOME="\$HOME/Settings/Config"
 export XDG_DATA_HOME="\$HOME/Settings/Data"
@@ -60,6 +60,10 @@ export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
 export QT_AUTO_SCREEN_SCALE_FACTOR="1"
 export LIBVA_DRIVER_NAME="radeonsi"
 export XCURSOR_SIZE="24"
+
+if [[ -z \$DISPLAY ]] && [[ \$(tty) = /dev/tty2 ]]; then
+  exec Hyprland
+fi
 PROFILE
 
 mkdir -p /etc/skel/Settings/Config/hypr
@@ -132,6 +136,15 @@ cat <<INI > /etc/ly/config.ini
 session = hyprland
 INI
 
+mkdir -p /usr/share/wayland-sessions
+cat <<ENTRY > /usr/share/wayland-sessions/hyprland.desktop
+[Desktop Entry]
+Name=Hyprland
+Comment=An intelligent dynamic tiling Wayland compositor
+Exec=Hyprland
+Type=Application
+ENTRY
+
 # --- 6. USER ACCESS ---
 mkdir -p /etc/default
 cat <<ACC > /etc/default/useradd
@@ -149,6 +162,8 @@ blacklist nvidia_modeset
 NO_NVIDIA
 
 # --- 8. SYSTEM ENABLE ---
+mkdir -p /etc/skel/.config
+ln -s ../Settings/Config/hypr /etc/skel/.config/hypr
 systemctl disable getty@tty2.service
 systemctl enable ly@tty2.service
 systemctl enable NetworkManager
