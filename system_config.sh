@@ -140,7 +140,15 @@ HOME=/home
 SHELL=/bin/bash
 ACC
 
-# --- 7. SYSTEM ENABLE ---
+# --- 7. FUCK NVIDIA ---
+cat <<NO_NVIDIA > /etc/modprobe.d/blacklist-nvidia.conf
+blacklist nouveau
+blacklist nvidia
+blacklist nvidia_drm
+blacklist nvidia_modeset
+NO_NVIDIA
+
+# --- 8. SYSTEM ENABLE ---
 systemctl disable getty@tty2.service
 systemctl enable ly@tty2.service
 systemctl enable NetworkManager
