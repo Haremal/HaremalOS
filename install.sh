@@ -110,7 +110,3 @@ arch-chroot /mnt /bin/bash <<EOF
   ./system_config.sh
 EOF
 rm /mnt/*.sh
-
-# TODO pacman -U --noconfirm --needed [github-haremal-browser-release]
-# TODO pacman -U --noconfirm --needed [github-haremalos-manager-release]
-# TODO exec-once = haremalos-manager
