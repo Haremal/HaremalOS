@@ -80,7 +80,7 @@ mount "$HOME_P" /mnt/home
 echo "SUCCESS: Partitions mounted to /mnt"
 
 # 9. INSTALLATION (The "Everything" List)
-pacstrap -K /mnt base linux linux-firmware sudo curl wget amd-ucode --noconfirm --needed
+pacstrap -K /mnt base linux linux-firmware grub efibootmgr sudo curl wget amd-ucode --noconfirm --needed
 
 # 10. SYSTEM CONFIG
 genfstab -U /mnt >> /mnt/etc/fstab
