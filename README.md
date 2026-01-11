@@ -23,8 +23,7 @@
 | **Audio** | Pipewire / Wireplumber |
 
 ## 📥 Installation
-1.  **Boot** the official HaremalOS Live ISO.
-2.  **Connect** to the internet.
-3.  **Run** the installer (if it doesn't auto-start):
-```bash
-bash <(curl -sL [https://raw.githubusercontent.com/youruser/HaremalOS/main/install.sh](https://raw.githubusercontent.com/youruser/HaremalOS/main/install.sh))
+1. **Download** the `HaremalOS.iso` from the [Releases](https://github.com/Haremal/HaremalOS/releases) tab.
+2. **Flash** the ISO onto a USB drive (using Etcher or `dd`).
+3. **Connect** your PC to wired internet (Ethernet).
+4. **Boot** the HaremalOS Live ISO; the installer will trigger automatically.
