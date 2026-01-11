@@ -15,6 +15,7 @@ if [ -f /tmp/dual_boot_flag ]; then
 fi
 pacman -S --noconfirm --needed $BOOT_PKGS
 sed -i 's/^#\(GRUB_DISABLE_OS_PROBER=false\)/\1/' /etc/default/grub
+sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 module_blacklist=nvidia,nvidia_modeset,nvidia_uvm,nvidia_drm amdgpu.dc=1"/' /etc/default/grub
 if ! grep -q "GRUB_DISABLE_OS_PROBER=false" /etc/default/grub; then
     echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
 fi
