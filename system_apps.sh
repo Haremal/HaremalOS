@@ -27,6 +27,8 @@ pacman -S --noconfirm --needed \
 	base-devel git cmake ninja sdbus-cpp rust \
     dotnet-sdk jdk-openjdk lua-language-server
 
+
+# TODO: THE WHOLE THING FROM HERE DOESNT WORK 
 # --- 4. TEMPORARY USER CREATION ---
 useradd -m -G wheel -s /bin/bash builder
 echo "builder ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builder
