@@ -6,46 +6,45 @@ pacman -Syu --noconfirm
 # Get the hardware ready before the heavy apps
 pacman -S --noconfirm --needed \
 	mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon \
-	grub efibootmgr networkmanager bluez bluez-utils \
+	libva-mesa-driver lib32-libva-mesa-driver \
+	networkmanager bluez bluez-utils \
 	xdg-desktop-portal xdg-desktop-portal-hyprland gnome-keyring \
 	xdg-desktop-portal-gtk xdg-utils hyprland-qt-support \
 	wayland wayland-protocols xorg-server-xwayland python \
-	polkit polkit-kde-agent gsettings-desktop-schemas
+	polkit polkit-kde-agent gsettings-desktop-schemas \
+	qt5-wayland qt6-wayland
 	
 # --- 2. THE HAERMALOS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
 	hyprland hyprpaper hypridle hyprlock mpv \
 	ly pipewire pipewire-pulse wireplumber \
 	wezterm neovim yazi fastfetch cava cmatrix \
-	ffmpeg fd ripgrep p7zip libnotify wl-clipboard \
+	ffmpeg fd ripgrep p7zip unzip zip libnotify wl-clipboard \
 	grim slurp playerctl lm_sensors papirus-icon-theme
 
 # --- 3. LANGUAGES & DEV TOOLS ---
 pacman -S --noconfirm --needed \
-	base-devel cmake ninja sdbus-cpp git rust \
+	base-devel git cmake ninja sdbus-cpp rust \
     dotnet-sdk jdk-openjdk lua-language-server
 
 # --- 4. TEMPORARY USER CREATION ---
-useradd -m -G wheel -s /bin/bash haremalos
-echo "haremalos:haremalos" | chpasswd
-echo "haremalos ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/haremalos
+useradd -m -G wheel -s /bin/bash builder
+echo "builder ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builder
 
 # --- 5. AUR (Paru & Themes) ---
 # We build the theme components as the temp user
-su - haremalos -c "git clone https://aur.archlinux.org/paru-bin.git /tmp/paru && cd /tmp/paru && makepkg -si --noconfirm"
-su - haremalos -c "paru -Sy"
-su - haremalos -c "paru -S --noconfirm --skipreview --provides=false bibata-cursor-theme-bin python-pywal hyprpanel-git hyprlauncher-git tty-clock hyprshot qt5-wayland qt6-wayland jetbrains-toolbox"
+su - builder -c "git clone https://aur.archlinux.org/paru-bin.git ~/paru && cd ~/paru && makepkg -si --noconfirm"
+su - builder -c "paru -S --noconfirm --skipreview --needed bibata-cursor-theme-bin python-pywal hyprpanel-git hyprlauncher-git tty-clock hyprshot jetbrains-toolbox"
 
 # --- 6. INSTALL CHOSEN APPS ---
 mkdir -p /opt
-[[ "$I_STEAM" == "y" ]] && pacman -S --noconfirm steam
-[[ "$I_BLENDER" == "y" ]] && pacman -S --noconfirm blender
-[[ "$I_OBS" == "y" ]] && pacman -S --noconfirm obs-studio
-[[ "$I_UNITY" == "y" ]] && su - haremalos -c "paru -S --noconfirm --skipreview --provides=false unityhub"
-[[ "$I_REAPER" == "y" ]] && su - haremalos -c "paru -S --noconfirm --skipreview --provides=false reaper-bin"
+[[ "$I_STEAM" == "y" ]] && pacman -S --noconfirm --needed steam
+[[ "$I_BLENDER" == "y" ]] && pacman -S --noconfirm --needed blender
+[[ "$I_OBS" == "y" ]] && pacman -S --noconfirm --needed obs-studio
+[[ "$I_UNITY" == "y" ]] && su - builder -c "ACCEPT_EULA=Y paru -S --noconfirm --skipreview --needed unityhub"
+[[ "$I_REAPER" == "y" ]] && su - builder -c "paru -S --noconfirm --skipreview --needed reaper-bin"
 
 # --- 7. CLEANUP ---
-pkill -9 -u haremalos || true
-userdel -rf haremalos || true
-rm -rf /home/haremalos
-rm -f /etc/sudoers.d/haremalos
+pkill -9 -u builder || true
+userdel -rf builder || true
+rm -f /etc/sudoers.d/builder
