@@ -30,7 +30,7 @@ Everything controlled via ONE. SINGULAR. APP.<br>
 | **AUR Helper** | Paru (Rust-based) |
 | **Audio** | Pipewire / Wireplumber |
 
-## 📥 Installation (***NOT YET AVAIABLE***)
+## 📥 Installation (**NOT YET AVAIABLE**)
 1. **Download** the `HaremalOS.iso` from the [Releases](https://github.com/Haremal/HaremalOS/releases) tab.
 2. **Flash** the ISO onto a USB drive (using Etcher or `dd`).
 3. **Connect** your PC to wired internet (Ethernet).
