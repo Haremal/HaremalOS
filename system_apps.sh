@@ -45,6 +45,7 @@ mkdir -p /opt
 [[ "$I_REAPER" == "y" ]] && su - haremalos -c "paru -S --noconfirm --skipreview --provides=false reaper-bin"
 
 # --- 7. CLEANUP ---
-rm /etc/sudoers.d/haremalos
 pkill -9 -u haremalos || true
-userdel -r haremalos
+userdel -rf haremalos || true
+rm -rf /home/haremalos
+rm -f /etc/sudoers.d/haremalos

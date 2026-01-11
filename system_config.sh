@@ -132,11 +132,21 @@ cat <<INI > /etc/ly/config.ini
 session = hyprland
 INI
 
-# --- 6. SYSTEM ENABLE ---
+# --- 6. USER ACCESS ---
+mkdir -p /etc/default
+cat <<ACC > /etc/default/useradd
+GROUPS=wheel,video,render,storage,power
+HOME=/home
+SHELL=/bin/bash
+ACC
+
+# --- 7. SYSTEM ENABLE ---
 systemctl disable getty@tty2.service
 systemctl enable ly@tty2.service
 systemctl enable NetworkManager
 systemctl enable bluetooth.service
 systemctl enable fstrim.timer
 sed -i 's/#AutoEnable=false/AutoEnable=true/' /etc/bluetooth/main.conf 2>/dev/null || true
-yes | sensors-detect --auto > /dev/null || true
+if [ -d /sys/class/dmi ]; then
+    yes | sensors-detect --auto > /dev/null 2>&1 || true
+fi
