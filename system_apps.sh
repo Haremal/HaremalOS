@@ -32,9 +32,9 @@ echo "nobody ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/nobody-build
 
 # --- 5. AUR (Paru & Themes) ---
 mkdir -p /tmp/paru
+chmod 777 /tmp/paru
 chown -R nobody:nobody /tmp/paru
 su -s /bin/bash nobody -c "cd /tmp/paru && git clone https://aur.archlinux.org/paru-bin.git . && makepkg -si --noconfirm"
-# Set a temporary cache directory for the 'nobody' user
 su -s /bin/bash nobody -c "paru -S --noconfirm --skipreview --needed --cachedir /tmp/paru_cache \
     bibata-cursor-theme-bin python-pywal hyprpanel-git hyprlauncher-git tty-clock hyprshot jetbrains-toolbox"
 	
