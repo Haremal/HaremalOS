@@ -27,25 +27,41 @@ pacman -S --noconfirm --needed \
 	base-devel git cmake ninja sdbus-cpp rust \
     dotnet-sdk jdk-openjdk lua-language-server
 
-# --- 4. TEMPORARY GHOST ---
-echo "nobody ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/nobody-build
 
-# --- 5. AUR (Paru & Themes) ---
-mkdir -p /tmp/paru
-chmod 777 /tmp/paru
-chown -R nobody:nobody /tmp/paru
-su -s /bin/bash nobody -c "cd /tmp/paru && git clone https://aur.archlinux.org/paru-bin.git . && makepkg -si --noconfirm"
-su -s /bin/bash nobody -c "paru -S --noconfirm --skipreview --needed --cachedir /tmp/paru_cache \
-    bibata-cursor-theme-bin python-pywal hyprpanel-git hyprlauncher-git tty-clock hyprshot jetbrains-toolbox"
+
+
+# --- 4. PREP BUILD SPACE ---
+mkdir -p /tmp/build_home
+chown -R nobody:nobody /tmp/build_home
+echo "nobody ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/nobody-build
+sudo -u nobody HOME=/tmp/build_home bash <<EOF
+  cd /tmp
+  git clone https://aur.archlinux.org/paru-bin.git
+  cd paru-bin
+  makepkg -si --noconfirm
+EOF
+
+# --- 5. AUR APPS ---
+sudo -u nobody HOME=/tmp/build_home paru -S --noconfirm --skipreview --needed \
+    bibata-cursor-theme-bin python-pywal hyprpanel-git \
+    hyprlauncher-git tty-clock hyprshot jetbrains-toolbox
 	
 # --- 6. INSTALL CHOSEN APPS ---
 mkdir -p /opt
+
 [[ "$I_STEAM" == "y" ]] && pacman -S --noconfirm --needed steam
 [[ "$I_BLENDER" == "y" ]] && pacman -S --noconfirm --needed blender
 [[ "$I_OBS" == "y" ]] && pacman -S --noconfirm --needed obs-studio
-[[ "$I_UNITY" == "y" ]] && mkdir -p /tmp/unity_home && chown nobody:nobody /tmp/unity_home && HOME=/tmp/unity_home su -s /bin/bash nobody -c "ACCEPT_EULA=Y paru -S --noconfirm --skipreview --needed --cachedir /tmp/paru_cache unityhub"
-[[ "$I_REAPER" == "y" ]] && su -s /bin/bash nobody -c "paru -S --noconfirm --skipreview --needed --cachedir /tmp/paru_cache reaper-bin"
+
+# Unity & Reaper (Fixed with sudo -u and HOME)
+[[ "$I_UNITY" == "y" ]] && {
+    mkdir -p /tmp/unity_home && chown nobody:nobody /tmp/unity_home
+    sudo -u nobody HOME=/tmp/unity_home ACCEPT_EULA=Y paru -S --noconfirm --skipreview --needed unityhub
+}
+[[ "$I_REAPER" == "y" ]] && {
+    sudo -u nobody HOME=/tmp/build_home paru -S --noconfirm --skipreview --needed reaper-bin
+}
 
 # --- 7. CLEANUP ---
 rm /etc/sudoers.d/nobody-build
-rm -rf /tmp/paru /tmp/paru_cache /tmp/unity_home
+rm -rf /tmp/build_home /tmp/paru-bin	
