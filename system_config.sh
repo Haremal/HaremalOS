@@ -40,8 +40,9 @@ Then set password to root (Forced action)
 Then run:
 1. useradd -m -c "Display Name" yourname
 2. passwd yourname
-3. reboot
+3. rm /etc/issue && reboot
 
+(This message will disappear after reboot)
 ------------------------------------------------------
 ISSUE
 
