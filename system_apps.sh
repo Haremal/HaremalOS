@@ -33,6 +33,7 @@ pacman -S --noconfirm --needed \
 # --- 4. PREP BUILD SPACE ---
 mkdir -p /tmp/build_home
 chown -R nobody:nobody /tmp/build_home
+usermod -s /bin/bash nobody
 echo "nobody ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/nobody-build
 sudo -u nobody HOME=/tmp/build_home bash <<EOF
   cd /tmp
@@ -65,3 +66,12 @@ mkdir -p /opt
 # --- 7. CLEANUP ---
 rm /etc/sudoers.d/nobody-build
 rm -rf /tmp/build_home /tmp/paru-bin	
+
+
+# 8. The verification check
+if pacman -Qi bibata-cursor-theme-bin > /dev/null; then
+    echo "VERIFIED: AUR Apps installed successfully."
+else
+    echo "ERROR: AUR Apps missing. Check /tmp/build_home for logs."
+    exit 1
+fi
