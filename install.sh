@@ -102,7 +102,7 @@ if arch-chroot /mnt /bin/bash <<EOF 2>&1 | tee /mnt/var/log/install.log
   export DUAL_BOOT="${DUAL_BOOT}"
   export I_STEAM="${I_STEAM}"
   export I_BLENDER="${I_BLENDER}"
-  export I_REAPER="${I_REAPER}"
+  export I_ARDOUR="${I_ARDOUR}"
   export I_OBS="${I_OBS}"
   export I_UNITY="${I_UNITY}"
   ./system_setup.sh
