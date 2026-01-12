@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -exuo pipefail
 pacman -Syu --noconfirm
 
 # --- 1. BASE SYSTEM & DRIVERS ---
@@ -65,7 +65,7 @@ mkdir -p /opt
 
 # --- 7. CLEANUP ---
 rm /etc/sudoers.d/nobody-build
-rm -rf /tmp/build_home /tmp/paru-bin	
+rm -rf /tmp/build_home /tmp/paru-bin /tmp/unity_home
 
 
 # 8. The verification check
