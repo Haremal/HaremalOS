@@ -122,10 +122,11 @@ mkdir -p /etc/ly
 cat <<INI > /etc/ly/config.ini
 [server]
 session = hyprland
-animation = 2
+animation = matrix
 bigclock = true
+hide_borders = false
 [color]
 bg = 0
-fg = 5
+fg = 6
 INI
 # -----------------------------------------------------
