@@ -98,7 +98,7 @@ cp "$SCRIPT_DIR/system_setup.sh" /mnt/
 cp "$SCRIPT_DIR/system_apps.sh" /mnt/
 cp "$SCRIPT_DIR/system_config.sh" /mnt/
 chmod +x /mnt/*.sh
-arch-chroot /mnt /bin/bash <<EOF 2>&1 | tee /mnt/var/log/install.log
+if arch-chroot /mnt /bin/bash <<EOF 2>&1 | tee /mnt/var/log/install.log
   export DUAL_BOOT="${DUAL_BOOT}"
   export I_STEAM="${I_STEAM}"
   export I_BLENDER="${I_BLENDER}"
@@ -109,11 +109,10 @@ arch-chroot /mnt /bin/bash <<EOF 2>&1 | tee /mnt/var/log/install.log
   ./system_apps.sh
   ./system_config.sh
 EOF
-
-# Only remove scripts if the chroot succeeded
-if arch-chroot /mnt ... (rest of command) ... EOF; then
+then
     rm /mnt/*.sh
-    echo "Install successful!"
+    echo "SUCCESS: Everything installed."
 else
-    echo "Install failed! Scripts left in /mnt for debugging."
+    echo "FAILED: Scripts kept in /mnt for troubleshooting."
+    exit 1
 fi
