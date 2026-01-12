@@ -55,7 +55,7 @@ read -p "Format home ($HOME_P)? (y/n): " HOME_CONFIRM
 
 read -p "Install Steam? (y/n) " I_STEAM
 read -p "Install Blender? (y/n) " I_BLENDER
-read -p "Install Reaper? (y/n) " I_REAPER
+read -p "Install Ardour? (y/n) " I_ARDOUR
 read -p "Install OBS Studio? (y/n) " I_OBS
 read -p "Install Unity Hub? (y/n) " I_UNITY
 
