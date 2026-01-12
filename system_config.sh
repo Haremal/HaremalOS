@@ -1,97 +1,88 @@
 #!/bin/bash
 set -e
 
-# --- 1. IDENTITY ---
+# --- 1. CREATE HYPRLAND SESSION ---
+# Manually register the session in case the package didn't
+mkdir -p /usr/share/wayland-sessions
+cat <<ENTRY > /usr/share/wayland-sessions/hyprland.desktop
+[Desktop Entry]
+Name=Hyprland
+Comment=An intelligent dynamic tiling Wayland compositor
+Exec=Hyprland
+Type=Application
+ENTRY
+
+# --- 2. ENABLE SERVICES ---
+systemctl disable getty@tty2.service
+systemctl enable ly@tty2.service
+systemctl enable NetworkManager
+systemctl enable bluetooth.service
+systemctl enable fstrim.timer
+sed -i 's/#AutoEnable=false/AutoEnable=true/' /etc/bluetooth/main.conf 2>/dev/null || true
+
+# --- 3. DETECT SENSORS ---
+if [ -d /sys/class/dmi ]; then
+    yes | sensors-detect --auto > /dev/null 2>&1 || true
+fi
+
+
+
+
+
+
+
+
+
+# ------------- REPLACE WITH AN APP LATER -------------
+# System Config
 ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 hwclock --systohc
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
-echo "haremalos" > /etc/hostname
+# Theme, Icons & Cursor
+mkdir -p /usr/share/glib-2.0/schemas/
+cat <<CRS > /usr/share/glib-2.0/schemas/99_haremalos_defaults.gschema.override
+[org.gnome.desktop.interface]
+color-scheme='prefer-dark'
+icon-theme='Papirus-Dark'
+cursor-theme='Bibata-Modern-Classic'
+cursor-size=24
+CRS
+glib-compile-schemas /usr/share/glib-2.0/schemas/
 
-cat <<HOSTS > /etc/hosts
-127.0.0.1   localhost
-::1         localhost
-127.0.1.1   haremalos.localdomain haremalos
-HOSTS
+# Fonts
+mkdir -p /usr/share/fonts/TTF
+curl -L -o /usr/share/fonts/TTF/Monocraft.ttc https://github.com/IdreesInc/Monocraft/releases/latest/download/Monocraft.ttc
+fc-cache -fv
 
-sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf kms block filesystems keyboard fsck)/' /etc/mkinitcpio.conf
-mkinitcpio -P
-
-echo '%wheel ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/wheel-nopasswd
-chmod 440 /etc/sudoers.d/wheel-nopasswd
-
-# --- 2. POLKIT ---
-cat <<POLKIT > /etc/polkit-1/rules.d/49-nopasswd.rules
-polkit.addRule(function(action, subject) {
-    if (subject.isInGroup("wheel")) {
-        return polkit.Result.YES;
-    }
-});
-POLKIT
-
-# --- 3. SKEL (The Blueprint for every new user) ---
-mkdir -p /etc/skel/Media/{Documents,Pictures,Videos,Music,Downloads} 
-mkdir -p /etc/skel/Settings/{Config,Data} /etc/skel/Projects
-
-cat <<PROFILE > /etc/skel/.bash_profile
-# --- PATH & XDG ---
-export XDG_CONFIG_HOME="\$HOME/Settings/Config"
-export XDG_DATA_HOME="\$HOME/Settings/Data"
-export XDG_DOCUMENTS_DIR="\$HOME/Media/Documents"
-export XDG_PICTURES_DIR="\$HOME/Media/Pictures"
-export XDG_VIDEOS_DIR="\$HOME/Media/Videos"
-export XDG_MUSIC_DIR="\$HOME/Media/Music"
-export XDG_DOWNLOAD_DIR="\$HOME/Media/Downloads"
-
-# --- WAYLAND & DESKTOP ---
-export XDG_CURRENT_DESKTOP="Hyprland"
-export XDG_SESSION_TYPE="wayland"
-export XDG_SESSION_DESKTOP="Hyprland"
-export MOZ_ENABLE_WAYLAND="1"
-export SDL_VIDEODRIVER="wayland"
-export CLUTTER_BACKEND="wayland"
-export GDK_BACKEND="wayland,x11"
-export GDK_SCALE="1"
-
-# --- TOOLKITS (Qt & Graphics) ---
-export QT_QPA_PLATFORM="wayland;xcb"
-export QT_QPA_PLATFORMTHEME="qt6ct"
-export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-export QT_AUTO_SCREEN_SCALE_FACTOR="1"
-export LIBVA_DRIVER_NAME="radeonsi"
-export XCURSOR_SIZE="24"
-
-if [[ -z \$DISPLAY ]] && [[ \$(tty) = /dev/tty2 ]]; then
-  exec Hyprland
-fi
-PROFILE
-
+# Binds
 mkdir -p /etc/skel/Settings/Config/hypr
 cat <<HYPR > /etc/skel/Settings/Config/hypr/hyprland.conf
-bind = SUPER, R, exec, hyprlauncher
-bind = SUPER, SPACE, exec, wezterm
-bind = PRINT, exec, hyprshot -m region
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = /usr/lib/polkit-kde-authentication-agent-1
 exec-once = hypridle
 exec-once = hyprpaper
 exec-once = hyprpanel
+bind = SUPER, R, exec, hyprlauncher
+bind = SUPER, SPACE, exec, wezterm
+bind = PRINT, exec, hyprshot -m region
 HYPR
 
+# Yazi
 mkdir -p /etc/skel/Settings/Config/yazi
 cat <<YAZI > /etc/skel/Settings/Config/yazi/yazi.toml
 [manager]
-ratio          = [ 1, 3, 4 ] # Ranger-style columns
+ratio          = [ 1, 3, 4 ]
 show_hidden    = true
 sort_by        = "natural"
 [preview]
 max_width      = 1280
 max_height     = 720
-image_delay    = 30 # Smoother performance in WezTerm
+image_delay    = 30
 [opener]
-play    = { run = 'mpv "$@"', orphan = true, desc = "Play Video" }
-copy    = { run = 'echo "$@" | wl-copy', desc = "Copy Path" }
-extract = { run = '7z x "$@"', desc = "Extract Archive" }
+play    = { run = 'mpv "\$@"', orphan = true, desc = "Play Video" }
+copy    = { run = 'echo "\$@" | wl-copy', desc = "Copy Path" }
+extract = { run = '7z x "\$@"', desc = "Extract Archive" }
 [open]
 rules = [
     { mime = "video/*", use = "play" },
@@ -103,81 +94,19 @@ YAZI
 cat <<YAZIKEY > /etc/skel/Settings/Config/yazi/keymap.toml
 [[manager.prepend_keymap]]
 on   = [ "y" ]
-run  = [ "copy path", "shell 'echo \"$@\" | wl-copy' --confirm" ]
+run  = [ "copy path", "shell 'echo \"\$@\" | wl-copy' --confirm" ]
 desc = "Copy path to system clipboard"
 YAZIKEY
 
-mkdir -p /etc/skel/Settings/Config/xdg-desktop-portal
-cat <<PORTALS > /etc/skel/Settings/Config/xdg-desktop-portal/portals.conf
-[preferred]
-default=hyprland
-org.freedesktop.impl.portal.FileChooser=gtk
-PORTALS
-
-# --- 4. THEME, CURSOR & FONT SETUP ---
-mkdir -p /usr/share/glib-2.0/schemas/
-cat <<CRS > /usr/share/glib-2.0/schemas/99_haremalos_defaults.gschema.override
-[org.gnome.desktop.interface]
-color-scheme='prefer-dark'
-icon-theme='Papirus-Dark'
-cursor-theme='Bibata-Modern-Classic'
-cursor-size=24
-CRS
-glib-compile-schemas /usr/share/glib-2.0/schemas/
-
-mkdir -p /usr/share/fonts/TTF
-curl -L -o /usr/share/fonts/TTF/Monocraft.ttc https://github.com/IdreesInc/Monocraft/releases/latest/download/Monocraft.ttc
-fc-cache -fv
-
-# --- 5. SESSION SETUP ---
+# Login Manager
 mkdir -p /etc/ly
 cat <<INI > /etc/ly/config.ini
 [server]
 session = hyprland
 animation = 2
 bigclock = true
-
 [color]
-# 0 = Pitch Black Background
 bg = 0
-# 5 = Eerie Purple Foreground
 fg = 5
 INI
-
-mkdir -p /usr/share/wayland-sessions
-cat <<ENTRY > /usr/share/wayland-sessions/hyprland.desktop
-[Desktop Entry]
-Name=Hyprland
-Comment=An intelligent dynamic tiling Wayland compositor
-Exec=Hyprland
-Type=Application
-ENTRY
-
-# --- 6. USER ACCESS ---
-mkdir -p /etc/default
-cat <<ACC > /etc/default/useradd
-GROUPS=wheel,video,render,storage,power
-HOME=/home
-SHELL=/bin/bash
-ACC
-
-# --- 7. FUCK NVIDIA ---
-cat <<NO_NVIDIA > /etc/modprobe.d/blacklist-nvidia.conf
-blacklist nouveau
-blacklist nvidia
-blacklist nvidia_drm
-blacklist nvidia_modeset
-NO_NVIDIA
-
-# --- 8. SYSTEM ENABLE ---
-mkdir -p /etc/skel/.config
-ln -s ../Settings/Config/hypr /etc/skel/.config/hypr
-systemctl disable getty@tty2.service
-systemctl enable ly@tty2.service
-systemctl enable NetworkManager
-systemctl enable bluetooth.service
-systemctl enable fstrim.timer
-sed -i 's/#AutoEnable=false/AutoEnable=true/' /etc/bluetooth/main.conf 2>/dev/null || true
-if [ -d /sys/class/dmi ]; then
-    yes | sensors-detect --auto > /dev/null 2>&1 || true
-fi
+# -----------------------------------------------------
