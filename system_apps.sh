@@ -30,48 +30,31 @@ pacman -S --noconfirm --needed \
 
 
 
-# --- 4. PREP BUILD SPACE ---
-mkdir -p /tmp/build_home
-chown -R nobody:nobody /tmp/build_home
-usermod -s /bin/bash nobody
-echo "nobody ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/nobody-build
-sudo -u nobody HOME=/tmp/build_home bash <<EOF
-  cd /tmp
-  git clone https://aur.archlinux.org/paru-bin.git
-  cd paru-bin
-  makepkg -si --noconfirm
-EOF
+# --- 4. PERMISSIONS & TEMP BUILDER ---
+pacman -Sy --noconfirm
+useradd -m -G wheel builder
+echo "builder ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builder
 
 # --- 5. AUR APPS ---
-sudo -u nobody HOME=/tmp/build_home paru -S --noconfirm --skipreview --needed \
+sudo -u builder bash <<AUR_EOF
+  cd /home/builder
+  git clone https://aur.archlinux.org/paru-bin.git
+  cd paru-bin && makepkg -si --noconfirm
+
+  paru -S --noconfirm \
     bibata-cursor-theme-bin python-pywal hyprpanel-git \
     hyprlauncher-git tty-clock hyprshot jetbrains-toolbox
-	
+
+  [[ "$I_UNITY" =~ [Yy] ]] && paru -S --noconfirm unity-hub
+AUR_EOF
+
 # --- 6. INSTALL CHOSEN APPS ---
 mkdir -p /opt
-
-[[ "$I_STEAM" == "y" ]] && pacman -S --noconfirm --needed steam
-[[ "$I_BLENDER" == "y" ]] && pacman -S --noconfirm --needed blender
-[[ "$I_OBS" == "y" ]] && pacman -S --noconfirm --needed obs-studio
-
-# Unity & Reaper (Fixed with sudo -u and HOME)
-[[ "$I_UNITY" == "y" ]] && {
-    mkdir -p /tmp/unity_home && chown nobody:nobody /tmp/unity_home
-    sudo -u nobody HOME=/tmp/unity_home ACCEPT_EULA=Y paru -S --noconfirm --skipreview --needed unityhub
-}
-[[ "$I_REAPER" == "y" ]] && {
-    sudo -u nobody HOME=/tmp/build_home paru -S --noconfirm --skipreview --needed reaper-bin
-}
+[[ "${I_STEAM}" =~ [Yy] ]]   && pacman -S --noconfirm --needed steam
+[[ "${I_BLENDER}" =~ [Yy] ]] && pacman -S --noconfirm --needed blender
+[[ "${I_OBS}" =~ [Yy] ]]     && pacman -S --noconfirm --needed obs-studio
+[[ "${I_ARDOUR}" =~ [Yy] ]]     && pacman -S --noconfirm --needed ardour
 
 # --- 7. CLEANUP ---
-rm /etc/sudoers.d/nobody-build
-rm -rf /tmp/build_home /tmp/paru-bin /tmp/unity_home
-
-
-# 8. The verification check
-if pacman -Qi bibata-cursor-theme-bin > /dev/null; then
-    echo "VERIFIED: AUR Apps installed successfully."
-else
-    echo "ERROR: AUR Apps missing. Check /tmp/build_home for logs."
-    exit 1
-fi
+rm /etc/sudoers.d/builder
+userdel -rf builder
