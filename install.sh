@@ -99,12 +99,12 @@ cp "$SCRIPT_DIR/system_apps.sh" /mnt/
 cp "$SCRIPT_DIR/system_config.sh" /mnt/
 chmod +x /mnt/*.sh
 arch-chroot /mnt /bin/bash <<EOF
-  export DUAL_BOOT='$DUAL_BOOT'
-  export I_STEAM='$I_STEAM'
-  export I_BLENDER='$I_BLENDER'
-  export I_REAPER='$I_REAPER'
-  export I_OBS='$I_OBS'
-  export I_UNITY='$I_UNITY'
+export DUAL_BOOT="${DUAL_BOOT}"
+  export I_STEAM="${I_STEAM}"
+  export I_BLENDER="${I_BLENDER}"
+  export I_REAPER="${I_REAPER}"
+  export I_OBS="${I_OBS}"
+  export I_UNITY="${I_UNITY}"
   ./system_setup.sh
   ./system_apps.sh
   ./system_config.sh
