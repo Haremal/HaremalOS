@@ -16,8 +16,8 @@ pacman -S --noconfirm --needed \
 	
 # --- 2. THE HAERMALOS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
-	hyprland ags-hyprpanel-git hyprpaper hypridle hyprlock hyprshot hyprlauncher \
-	ly paru pipewire pipewire-pulse wireplumber mpv grim slurp \
+	hyprland ags-hyprpanel-git hyprpaper hypridle hyprlock hyprlauncher hyprshot \
+	ly paru pipewire pipewire-pulse wireplumber mpvpaper mpv grim slurp \
 	wezterm neovim yazi fastfetch cava cmatrix tty-clock \
 	ffmpeg fd ripgrep p7zip unzip zip libnotify wl-clipboard \
 	playerctl lm_sensors papirus-icon-theme python-pywal bibata-cursor-theme
