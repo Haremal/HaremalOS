@@ -10,6 +10,7 @@ cat <<HOSTS > /etc/hosts
 HOSTS
 
 # --- 2. KEYRING & REPOS ---
+pacman -Sy --noconfirm archlinux-keyring
 pacman-key --init
 pacman-key --populate archlinux
 pacman -Syu --noconfirm
