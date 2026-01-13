@@ -98,7 +98,7 @@ Type=Application
 ENTRY
 
 # --- 2. ENABLE SERVICES ---
-systemctl disable getty@tty2.service
+systemctl disable getty@tty2.service || true
 systemctl enable ly@tty2.service
 systemctl enable NetworkManager
 systemctl enable bluetooth.service
