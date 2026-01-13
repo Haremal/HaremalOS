@@ -1,55 +1,6 @@
 #!/bin/bash
 set -e
 
-# --- 1. CREATE HYPRLAND SESSION ---
-# Manually register the session in case the package didn't
-mkdir -p /usr/share/wayland-sessions
-cat <<ENTRY > /usr/share/wayland-sessions/hyprland.desktop
-[Desktop Entry]
-Name=Hyprland
-Comment=An intelligent dynamic tiling Wayland compositor
-Exec=Hyprland
-Type=Application
-ENTRY
-
-# --- 2. ENABLE SERVICES ---
-systemctl disable getty@tty2.service
-systemctl enable ly@tty2.service
-systemctl enable NetworkManager
-systemctl enable bluetooth.service
-systemctl enable fstrim.timer
-sed -i 's/#AutoEnable=false/AutoEnable=true/' /etc/bluetooth/main.conf 2>/dev/null || true
-
-# --- 3. DETECT SENSORS ---
-if [ -d /sys/class/dmi ]; then
-    yes | sensors-detect --auto > /dev/null 2>&1 || true
-fi
-
-# --- 4. FIRST BOOT ---
-passwd -d root
-chage -d 0 root
-cat <<ISSUE > /etc/issue
-------------------------------------------------------
-      WELCOME TO HAREMALOS (FIRST BOOT)
-------------------------------------------------------
-Login as 'root' (No password required).
-Then set password to root (Forced action)
-
-Then run:
-1. useradd -m -c "Display Name" yourname
-2. passwd yourname
-3. rm /etc/issue && reboot
-
-(This message will disappear after reboot)
-------------------------------------------------------
-ISSUE
-
-
-
-
-
-
-
 # ------------- REPLACE WITH AN APP LATER -------------
 # System Config
 ln -sf /usr/share/zoneinfo/UTC /etc/localtime
@@ -130,3 +81,51 @@ fg = 6
 auth_root = true
 INI
 # -----------------------------------------------------
+
+
+
+
+
+# --- 1. CREATE HYPRLAND SESSION ---
+# Manually register the session in case the package didn't
+mkdir -p /usr/share/wayland-sessions
+cat <<ENTRY > /usr/share/wayland-sessions/hyprland.desktop
+[Desktop Entry]
+Name=Hyprland
+Comment=An intelligent dynamic tiling Wayland compositor
+Exec=Hyprland
+Type=Application
+ENTRY
+
+# --- 2. ENABLE SERVICES ---
+systemctl disable getty@tty2.service
+systemctl enable ly@tty2.service
+systemctl enable NetworkManager
+systemctl enable bluetooth.service
+systemctl enable fstrim.timer
+sed -i 's/#AutoEnable=false/AutoEnable=true/' /etc/bluetooth/main.conf 2>/dev/null || true
+
+# --- 3. DETECT SENSORS ---
+if [ -d /sys/class/dmi ]; then
+    yes | sensors-detect --auto > /dev/null 2>&1 || true
+fi
+
+# --- 4. FIRST BOOT ---
+passwd -d root
+chage -d 0 root
+cat <<ISSUE > /etc/issue
+------------------------------------------------------
+      WELCOME TO HAREMALOS (FIRST BOOT)
+------------------------------------------------------
+Login as 'root' (No password required).
+Then set password to root (Forced action)
+
+Then run:
+1. useradd -m -c "Display Name" yourname
+2. passwd yourname
+3. rm /etc/issue && reboot
+
+(This message will disappear after reboot)
+------------------------------------------------------
+ISSUE
+
