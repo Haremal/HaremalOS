@@ -25,11 +25,9 @@ if [ -d /sys/class/dmi ]; then
     yes | sensors-detect --auto > /dev/null 2>&1 || true
 fi
 
-# --- 3. FIRST BOOT ---
+# --- 4. FIRST BOOT ---
 passwd -d root
 chage -d 0 root
-echo "auth_root = true" >> /etc/ly/config.ini
-
 cat <<ISSUE > /etc/issue
 ------------------------------------------------------
       WELCOME TO HAREMALOS (FIRST BOOT)
@@ -128,5 +126,7 @@ hide_borders = false
 [color]
 bg = 0
 fg = 6
+[auth]
+auth_root = true
 INI
 # -----------------------------------------------------
