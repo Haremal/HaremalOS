@@ -86,7 +86,7 @@ PORTALS
 mkdir -p /etc/default
 cat <<ACC > /etc/default/useradd
 GROUP=1000
-GROUPS=wheel,video,render,storage,power
+GROUPS=wheel,video,render,storage,power,input
 HOME=/home
 SHELL=/bin/bash
 SKEL=/etc/skel
