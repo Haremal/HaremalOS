@@ -61,6 +61,7 @@ export SDL_VIDEODRIVER="wayland"
 export CLUTTER_BACKEND="wayland"
 export GDK_BACKEND="wayland,x11"
 export GDK_SCALE="1"
+export WINIT_UNIX_BACKEND="wayland"
 
 # --- TOOLKITS (Qt & Graphics) ---
 export QT_QPA_PLATFORM="wayland;xcb"
