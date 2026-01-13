@@ -16,42 +16,21 @@ pacman -S --noconfirm --needed \
 	
 # --- 2. THE HAERMALOS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
-	hyprland hyprpaper hypridle hyprlock hyprshot hyprlauncher-git \
-	ly pipewire pipewire-pulse wireplumber mpv \
-	wezterm neovim yazi fastfetch cava cmatrix \
+	hyprland ags-hyprpanel-git hyprpaper hypridle hyprlock hyprshot hyprlauncher-git \
+	ly paru pipewire pipewire-pulse wireplumber mpv grim slurp \
+	wezterm neovim yazi fastfetch cava cmatrix tty-clock \
 	ffmpeg fd ripgrep p7zip unzip zip libnotify wl-clipboard \
-	grim slurp playerctl lm_sensors papirus-icon-theme python-pywal
-
+	playerctl lm_sensors papirus-icon-theme python-pywal bibata-cursor-theme-bin
+	
 # --- 3. LANGUAGES & DEV TOOLS ---
 pacman -S --noconfirm --needed \
 	base-devel git cmake ninja sdbus-cpp rust \
     dotnet-sdk jdk-openjdk lua-language-server
 
-
-
-
-# --- 4. PERMISSIONS & TEMP BUILDER ---
-pacman -Sy --noconfirm
-useradd -m -G wheel builder
-echo "builder ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builder
-
-# --- 5. AUR APPS ---
-sudo -u builder bash <<AUR_EOF
-  cd /home/builder
-  git clone https://aur.archlinux.org/paru-bin.git
-  cd paru-bin && makepkg -si --noconfirm
-
-  paru -S --noconfirm bibata-cursor-theme-bin ags-hyprpanel-git tty-clock jetbrains-toolbox
-  [[ "$I_UNITY" =~ [Yy] ]] && paru -S --noconfirm unity-hub
-AUR_EOF
-
-# --- 6. INSTALL CHOSEN APPS ---
-mkdir -p /opt
+# --- 4. CHOSEN APPS ---
 [[ "${I_STEAM}" =~ [Yy] ]] && pacman -S --noconfirm --needed steam
+[[ "${I_TOOLBOX}" =~ [Yy] ]] && pacman -S --noconfirm --needed jetbrains-toolbox
 [[ "${I_BLENDER}" =~ [Yy] ]] && pacman -S --noconfirm --needed blender
+[[ "$I_UNITY" =~ [Yy] ]] && pacman -S --noconfirm --needed unityhub
 [[ "${I_OBS}" =~ [Yy] ]] && pacman -S --noconfirm --needed obs-studio
 [[ "${I_ARDOUR}" =~ [Yy] ]] && pacman -S --noconfirm --needed ardour
-
-# --- 7. CLEANUP ---
-rm /etc/sudoers.d/builder
-userdel -rf builder
