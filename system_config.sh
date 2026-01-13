@@ -32,7 +32,7 @@ exec-once = /usr/lib/polkit-kde-authentication-agent-1
 exec-once = hypridle
 exec-once = hyprpaper
 exec-once = hyprpanel
-bindr = , SUPER_L, exec, hyprlauncher
+exec-once = eww daemon
 bind = SUPER_L, SPACE, exec, foot
 bind = , Print, exec, hyprshot -m region
 # Volume Control (Wireplumber)
