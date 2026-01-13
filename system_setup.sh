@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+sed -i 's/^#ParallelDownloads = 5/ParallelDownloads = 10/' /etc/pacman.conf
 
 # --- 1. IDENTITY & NETWORK ---
 echo "haremalos" > /etc/hostname
