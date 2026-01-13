@@ -12,7 +12,6 @@ HOSTS
 # --- 2. KEYRING & REPOS ---
 pacman-key --init
 pacman-key --populate archlinux
-sed -i '/\[multilib\]/,/Include/s/^#//' /etc/pacman.conf
 pacman -Syu --noconfirm
 
 # --- 3. GRUB & BOOTLOADER ---
