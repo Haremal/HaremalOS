@@ -26,7 +26,27 @@ fc-cache -fv
 # Binds
 mkdir -p /etc/skel/Settings/Config/hypr
 cat <<HYPR > /etc/skel/Settings/Config/hypr/hyprland.conf
-monitor=,highres,auto,1
+monitor=, preferred, auto, 1
+# --- TOOLKITS & WAYLAND ---
+env = GDK_BACKEND,wayland,x11
+env = QT_QPA_PLATFORM,wayland;xcb
+env = SDL_VIDEODRIVER,wayland
+env = CLUTTER_BACKEND,wayland
+env = MOZ_ENABLE_WAYLAND,1
+# --- XDG COMPATIBILITY ---
+env = XDG_CURRENT_DESKTOP,Hyprland
+env = XDG_SESSION_TYPE,wayland
+env = XDG_SESSION_DESKTOP,Hyprland
+# --- Toolkit & UI Scaling ---
+env = GDK_SCALE,1
+env = QT_AUTO_SCREEN_SCALE_FACTOR,1
+env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
+env = QT_QPA_PLATFORMTHEME,qt6ct
+# --- GRAPHICS (AMD) ---
+env = LIBVA_DRIVER_NAME,radeonsi
+env = mesa_glthread,true # Optional: extra AMD performance
+# --- BACKEND SETTINGS---
+env = WINIT_UNIX_BACKEND,wayland
 env = HYPRCURSOR_THEME,Bibata-Modern-Classic
 env = HYPRCURSOR_SIZE,24
 env = XCURSOR_THEME,Bibata-Modern-Classic
