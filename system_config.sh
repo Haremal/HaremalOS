@@ -26,45 +26,23 @@ fc-cache -fv
 # Binds
 mkdir -p /etc/skel/Settings/Config/hypr
 cat <<HYPR > /etc/skel/Settings/Config/hypr/hyprland.conf
+monitor=,highres,auto,1
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = /usr/lib/polkit-kde-authentication-agent-1
 exec-once = hypridle
 exec-once = hyprpaper
 exec-once = hyprpanel
-bind = SUPER, R, exec, hyprlauncher
-bind = SUPER, SPACE, exec, wezterm
-bind = PRINT, exec, hyprshot -m region
+bindr = , SUPER_L, exec, hyprlauncher
+bind = SUPER_L, SPACE, exec, foot
+bind = , Print, exec, hyprshot -m region
+# Volume Control (Wireplumber)
+bind = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bind = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+# Brightness Control (Brightnessctl)
+bind = , XF86MonBrightnessUp, exec, brightnessctl set 5%+
+bind = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
 HYPR
-
-# Yazi
-mkdir -p /etc/skel/Settings/Config/yazi
-cat <<YAZI > /etc/skel/Settings/Config/yazi/yazi.toml
-[manager]
-ratio          = [ 1, 3, 4 ]
-show_hidden    = true
-sort_by        = "natural"
-[preview]
-max_width      = 1280
-max_height     = 720
-image_delay    = 30
-[opener]
-play    = { run = 'mpv "\$@"', orphan = true, desc = "Play Video" }
-copy    = { run = 'echo "\$@" | wl-copy', desc = "Copy Path" }
-extract = { run = '7z x "\$@"', desc = "Extract Archive" }
-[open]
-rules = [
-    { mime = "video/*", use = "play" },
-    { mime = "audio/*", use = "play" },
-    { name = "*.zip",   use = "extract" },
-    { name = "*.7z",    use = "extract" }
-]
-YAZI
-cat <<YAZIKEY > /etc/skel/Settings/Config/yazi/keymap.toml
-[[manager.prepend_keymap]]
-on   = [ "y" ]
-run  = [ "copy path", "shell 'echo \"\$@\" | wl-copy' --confirm" ]
-desc = "Copy path to system clipboard"
-YAZIKEY
 
 # Login Manager
 mkdir -p /etc/ly
