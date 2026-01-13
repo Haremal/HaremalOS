@@ -102,7 +102,17 @@ sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf kms block filesystems ke
 sed -i 's/^MODULES=.*/MODULES=(amdgpu)/' /etc/mkinitcpio.conf
 mkinitcpio -P
 
-# --- 7. SWAP FILE ---
+# --- 7. CHAOTIC AUR & OPT FOLDER ---
+sed -i '/\[multilib\]/,/Include/s/^#//' /etc/pacman.conf
+pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+pacman-key --lsign-key 3056513887B78AEB
+pacman -U --noconfirm --needed 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
+pacman -U --noconfirm --needed 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+printf "\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist\n" >> /etc/pacman.conf
+pacman -Syu --noconfirm --needed
+mkdir -p /opt
+
+# --- 8. SWAP FILE ---
 if [ ! -f /swapfile ]; then
     fallocate -l 8G /swapfile
     chmod 600 /swapfile
