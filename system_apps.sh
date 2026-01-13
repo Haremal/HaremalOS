@@ -6,7 +6,7 @@ pacman -Syu --noconfirm
 # Get the hardware ready before the heavy apps
 pacman -S --noconfirm --needed \
 	mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon \
-	libva-mesa-driver lib32-libva-mesa-driver \
+	libva-mesa-driver lib32-libva-mesa-driver wev \
 	networkmanager bluez bluez-utils glib2 fontconfig \
 	xdg-desktop-portal xdg-desktop-portal-hyprland gnome-keyring \
 	xdg-desktop-portal-gtk xdg-utils hyprland-qt-support \
