@@ -4,9 +4,9 @@ set -e
 # --- 1. IDENTITY & NETWORK ---
 echo "haremalos" > /etc/hostname
 cat <<HOSTS > /etc/hosts
-127.0.0.1   localhost
-::1         localhost
-127.0.1.1   haremalos.localdomain haremalos
+127.0.0.1 localhost
+::1 localhost
+127.0.1.1 haremalos.localdomain haremalos
 HOSTS
 
 # --- 2. KEYRING & REPOS ---
@@ -106,10 +106,11 @@ mkinitcpio -P
 sed -i '/\[multilib\]/,/Include/s/^#//' /etc/pacman.conf
 pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
 pacman-key --lsign-key 3056513887B78AEB
-pacman -U --noconfirm --needed 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
-pacman -U --noconfirm --needed 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
+pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+pacman-key --populate chaotic
 printf "\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist\n" >> /etc/pacman.conf
-pacman -Syu --noconfirm --needed
+pacman -Syu --noconfirm
 mkdir -p /opt
 
 # --- 8. SWAP FILE ---
