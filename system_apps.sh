@@ -16,11 +16,11 @@ pacman -S --noconfirm --needed \
 	
 # --- 2. THE HAERMALOS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
-	hyprland hyprpaper hypridle hyprlock mpv \
-	ly pipewire pipewire-pulse wireplumber \
+	hyprland hyprpaper hypridle hyprlock hyprshot hyprlauncher-git \
+	ly pipewire pipewire-pulse wireplumber mpv \
 	wezterm neovim yazi fastfetch cava cmatrix \
 	ffmpeg fd ripgrep p7zip unzip zip libnotify wl-clipboard \
-	grim slurp playerctl lm_sensors papirus-icon-theme
+	grim slurp playerctl lm_sensors papirus-icon-theme python-pywal
 
 # --- 3. LANGUAGES & DEV TOOLS ---
 pacman -S --noconfirm --needed \
@@ -41,19 +41,16 @@ sudo -u builder bash <<AUR_EOF
   git clone https://aur.archlinux.org/paru-bin.git
   cd paru-bin && makepkg -si --noconfirm
 
-  paru -S --noconfirm \
-    bibata-cursor-theme-bin python-pywal hyprpanel-git \
-    hyprlauncher-git tty-clock hyprshot jetbrains-toolbox
-
+  paru -S --noconfirm bibata-cursor-theme-bin ags-hyprpanel-git tty-clock jetbrains-toolbox
   [[ "$I_UNITY" =~ [Yy] ]] && paru -S --noconfirm unity-hub
 AUR_EOF
 
 # --- 6. INSTALL CHOSEN APPS ---
 mkdir -p /opt
-[[ "${I_STEAM}" =~ [Yy] ]]   && pacman -S --noconfirm --needed steam
+[[ "${I_STEAM}" =~ [Yy] ]] && pacman -S --noconfirm --needed steam
 [[ "${I_BLENDER}" =~ [Yy] ]] && pacman -S --noconfirm --needed blender
-[[ "${I_OBS}" =~ [Yy] ]]     && pacman -S --noconfirm --needed obs-studio
-[[ "${I_ARDOUR}" =~ [Yy] ]]     && pacman -S --noconfirm --needed ardour
+[[ "${I_OBS}" =~ [Yy] ]] && pacman -S --noconfirm --needed obs-studio
+[[ "${I_ARDOUR}" =~ [Yy] ]] && pacman -S --noconfirm --needed ardour
 
 # --- 7. CLEANUP ---
 rm /etc/sudoers.d/builder
