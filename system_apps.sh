@@ -17,10 +17,10 @@ pacman -S --noconfirm --needed \
 	
 # --- 2. THE HAERMALOS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
-	ly hyprland swww hypridle hyprlock \
+	ly hyprland swww hypridle hyprlock hyprcursor \
 	foot chafa neovim yazi fastfetch cava cmatrix tty-clock \
-	paru ffmpeg fd ripgrep p7zip unzip zip libnotify grim slurp wl-clipboard mpv \
-	eww-wayland-git brightnessctl playerctl lm_sensors  papirus-icon-theme bibata-cursor-theme python-pywal
+	ffmpeg fd ripgrep p7zip unzip zip libnotify grim slurp wl-clipboard mpv \
+	eww-wayland-git brightnessctl playerctl lm_sensors papirus-icon-theme bibata-cursor-theme python-pywal
 	
 # --- 3. LANGUAGES & DEV TOOLS ---
 pacman -S --noconfirm --needed \
