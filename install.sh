@@ -61,16 +61,11 @@ echo "Formatting started..."
 mkfs.ext4 -F "$ROOT_P"
 [[ "$HOME_CONFIRM" =~ [Yy] ]] && mkfs.ext4 -F "$HOME_P"
 
-# 8. MOUNTING (Cleaned path variables)
+# 8. MOUNTING
 mount "$ROOT_P" /mnt
-if [[ "$EFI_CONFIRM" =~ [Yy] ]]; then
-    mkdir -p /mnt/boot
-    mount "$EFI_P" /mnt/boot
-fi
-if [[ "$HOME_CONFIRM" =~ [Yy] ]]; then
-    mkdir -p /mnt/home
-    mount "$HOME_P" /mnt/home
-fi
+mkdir -p /mnt/boot /mnt/home
+mount "$EFI_P" /mnt/boot
+mount "$HOME_P" /mnt/home
 echo "SUCCESS: Partitions mounted to /mnt"
 
 # 9. INSTALLATION (The "Everything" List)
