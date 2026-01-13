@@ -26,8 +26,8 @@ Everything controlled via ONE. SINGULAR. APP.<br>
 | :--- | :--- |
 | **Base** | Arch Linux |
 | **Shell** | Bash / Zsh |
-| **Terminal** | WezTerm |
-| **AUR Helper** | Paru (Rust-based) |
+| **Terminal** | Foot |
+| **AUR Helper** | Chaotir-AUR |
 | **Audio** | Pipewire / Wireplumber |
 
 ## 📥 Installation (**NOT YET AVAIABLE**)
