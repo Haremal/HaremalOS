@@ -24,7 +24,7 @@ pacman -S --noconfirm --needed \
 	
 # --- 3. LANGUAGES & DEV TOOLS ---
 pacman -S --noconfirm --needed \
-	ninja nlohmann-json sdbus-cpp rust \
+	ninja nlohmann-json sdbus-cpp rust jq \
     dotnet-sdk jdk-openjdk lua-language-server
 
 # --- 4. CHOSEN APPS ---
