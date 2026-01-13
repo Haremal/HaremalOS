@@ -27,22 +27,29 @@ fc-cache -fv
 mkdir -p /etc/skel/Settings/Config/hypr
 cat <<HYPR > /etc/skel/Settings/Config/hypr/hyprland.conf
 monitor=,highres,auto,1
+
+# Core Services
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = /usr/lib/polkit-kde-authentication-agent-1
 exec-once = hypridle
-exec-once = hyprpaper
-exec-once = hyprpanel
+
+# Your Architecture (Brain + Eww + Wallpaper)
+exec-once = swww-daemon
 exec-once = eww daemon
+# exec-once = ~/path/to/haremalos-manager  # Your C++ App
+
+# Binds
 bind = SUPER_L, SPACE, exec, foot
-bind = , Print, exec, hyprshot -m region
+bind = , Print, exec, grim -g "\$(slurp)" - | wl-copy
+
 # Volume Control (Wireplumber)
 bind = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
 bind = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
 # Brightness Control (Brightnessctl)
 bind = , XF86MonBrightnessUp, exec, brightnessctl set 5%+
-bind = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
-HYPR
+bind = , XF86MonBrightnessDown, exec, brightnessctl set 5%-HYPR
 
 # Login Manager
 mkdir -p /etc/ly
@@ -96,7 +103,7 @@ cat <<ISSUE > /etc/issue
       WELCOME TO HAREMALOS (FIRST BOOT)
 ------------------------------------------------------
 Login as 'root' (No password required).
-Then set password to root (Forced action)
+Then set password for root.
 
 Then run:
 1. useradd -m -c "Display Name" yourname
