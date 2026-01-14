@@ -5,13 +5,17 @@ read -p "TYPE 'YES' TO CONTINUE $TARGET_DISK: " FINAL_CHECK
 # --- 2. CLEANUP & PARTITIONING ---
 swapoff -a 2>/dev/null || true
 umount -R /mnt 2>/dev/null || true
+for part in "${TARGET_DISK}"*; do
+    umount -l "$part" 2>/dev/null || true
+done
+umount -R /mnt 2>/dev/null || true
 
 # --- 3. SEARCH OR CREATE ---
 sleep 2
 ROOT_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "4f680000-0044-4453-8061-616362657266" | awk '{print $1}' | tail -n 1) || true
 if [ "$FORMAT" == "1" ]; then
     echo "Fresh install: Creating new partitions..."
-    wipefs -a "$TARGET_DISK"
+    wipefs -af "$TARGET_DISK"
     sfdisk --force "$TARGET_DISK" << EOF
 label: gpt
 size=512M, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B
@@ -28,7 +32,7 @@ sleep 2
 sleep 2
 EFI_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "c12a7328" | awk '{print $1}' | head -n 1)
 ROOT_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "4f680000-0044-4453-8061-616362657266" | awk '{print $1}' | tail -n 1)
-HOME_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "0fc63daf-8483-4772-8e79-3d69d8477DE4" | awk '{print $1}' | tail -n 1)
+HOME_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "0fc63daf-8483-4772-8e79-3d69d8477DE4" | awk '{print $1}' | tail -n 1) || true
 
 # SAFETY GATE: for idiots
 if [[ -z "$EFI_P" || -z "$ROOT_P" ]]; then
