@@ -2,7 +2,7 @@
 read -p "TYPE 'YES' TO CONTINUE $TARGET_DISK: " FINAL_CHECK
 [[ "$FINAL_CHECK" != "YES" ]] && exit 1
 
-# --- 2. CLEANUP & PARTITIONING ---
+# --- 2. CLEANUP ---
 swapoff -a 2>/dev/null || true
 umount -R /mnt 2>/dev/null || true
 
