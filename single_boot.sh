@@ -40,4 +40,4 @@ fi
 
 mkfs.fat -F 32 "$EFI_P"
 mkfs.ext4 -F "$ROOT_P"
-[[ "$FORMAT_HOME" =~ [Yy] ]] && mkfs.ext4 -F "$HOME_P"
+[[ "$FORMAT" == "1" ]] && mkfs.ext4 -F "$HOME_P"
