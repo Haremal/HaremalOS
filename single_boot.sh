@@ -5,6 +5,8 @@ read -p "TYPE 'YES' TO CONTINUE $TARGET_DISK: " FINAL_CHECK
 # --- 2. CLEANUP & PARTITIONING ---
 swapoff -a 2>/dev/null || true
 umount -R /mnt 2>/dev/null || true
+dmsetup remove_all --force 2>/dev/null || true
+vgchange -an 2>/dev/null || true
 fuser -kv "$TARGET_DISK"* 2>/dev/null || true
 for part in "${TARGET_DISK}"*; do
     umount -l "$part" 2>/dev/null || true
