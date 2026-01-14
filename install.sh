@@ -22,7 +22,10 @@ read -p "Install OBS? (y/n) " I_OBS
 read -p "Install Ardour? (y/n) " I_ARDOUR
 echo "1) Wipe entire disk (Clean Install)"
 echo "2) Use free space (Keep existing OS/Windows)"
-read -p "Selection: " DISK_MODE
+read -p "Selection (Type 1 or 2): " DISK_MODE
+echo "1) Wipe the whole disk"
+echo "2. Format the root"
+read -p "Selection (Type 1 or 2): " DISK_MODE
 
 # --- 4. DUAL BOOT ---
 if [[ "$DISK_MODE" == "1" ]]; then
