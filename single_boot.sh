@@ -43,6 +43,10 @@ if [[ -z "$EFI_P" || -z "$ROOT_P" ]]; then
     return 1 2>/dev/null || exit 1
 fi
 
+wipefs -af "$EFI_P"
+wipefs -af "$ROOT_P"
+[[ "$FORMAT" == "1" && -n "$HOME_P" ]] && wipefs -af "$HOME_P"
+
 mkfs.fat -F 32 "$EFI_P"
 mkfs.ext4 -F "$ROOT_P"
 [[ "$FORMAT" == "1" ]] && mkfs.ext4 -F "$HOME_P"
