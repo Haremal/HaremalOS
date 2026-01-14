@@ -30,3 +30,4 @@ HOME_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "0fc63daf-8483-4772-8e
 mkfs.fat -F 32 "$EFI_P"
 mkfs.ext4 -F "$ROOT_P"
 [[ "$FORMAT_HOME" =~ [Yy] ]] && mkfs.ext4 -F "$HOME_P"
+export EFI_P ROOT_P HOME_P
