@@ -2,7 +2,7 @@
 echo "1. Wipe the whole disk"
 echo "2. Format the root"
 read -p "Type 1 or 2 to to decide what to do with this bitch $TARGET_DISK: " FORMAT
-read -p "ARE YOU SURE U WANT TO CONTINUE? $TARGET_DISK: " FINAL_CHECK
+read -p "TYPE 'YES' TO CONTINUE $TARGET_DISK: " FINAL_CHECK
 [[ "$FINAL_CHECK" != "YES" ]] && exit 1
 
 # --- 2. CLEANUP & PARTITIONING ---
