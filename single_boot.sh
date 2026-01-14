@@ -22,6 +22,7 @@ EOF
 fi
 
 # --- 4. DEFINE & FORMAT ---
+sleep 2
 EFI_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "c12a7328" | awk '{print $1}' | head -n 1)
 ROOT_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "4f680000-0044-4453-8061-616362657266" | awk '{print $1}' | tail -n 1)
 HOME_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "0fc63daf-8483-4772-8e79-3d69d8477DE4" | awk '{print $1}' | tail -n 1)
