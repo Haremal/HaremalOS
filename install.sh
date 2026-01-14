@@ -19,11 +19,11 @@ read -p "Install Blender? (y/n) " I_BLENDER
 read -p "Install Unity? (y/n) " I_UNITY
 read -p "Install OBS? (y/n) " I_OBS
 read -p "Install Ardour? (y/n) " I_ARDOUR
-echo "1) Wipe entire disk (Clean Install)"
+echo "1) Use the entire drive"
 echo "2) Use free space (Keep existing OS/Windows)"
 read -p "Selection (Type 1 or 2): " DISK_MODE
-echo "1) Wipe the whole disk (for fresh install)"
-echo "2. Format (keeps home safe if it exists)"
+echo "1) Wipe disk (for fresh install)"
+echo "2. Format (keeps home safe)"
 read -p "Selection (Type 1 or 2): " FORMAT
 
 # --- 4. DUAL BOOT ---
