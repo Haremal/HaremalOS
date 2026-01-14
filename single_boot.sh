@@ -22,7 +22,7 @@ type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"
 
     echo "$SFDISK_CMD" | sfdisk --force "$TARGET_DISK"
 fi
-echo "FNAF"
+echo "FNAF1"
 exit 1
 
 udevadm settle
