@@ -13,7 +13,6 @@ TARGET_DISK="/dev/${D_NAME#/dev/}"
 
 # --- 3. SOFTWARE CHOICES ---
 read -p "Enter Root partition size (e.g., 100G or 50G): " ROOT_SIZE
-read -p "Format Home partition? (y/n): " FORMAT_HOME
 read -p "Install Steam? (y/n) " I_STEAM
 read -p "Install Toolbox? (y/n) " I_TOOLBOX
 read -p "Install Blender? (y/n) " I_BLENDER
@@ -25,7 +24,7 @@ echo "2) Use free space (Keep existing OS/Windows)"
 read -p "Selection (Type 1 or 2): " DISK_MODE
 echo "1) Wipe the whole disk"
 echo "2. Format the root"
-read -p "Selection (Type 1 or 2): " DISK_MODE
+read -p "Selection (Type 1 or 2): " FORMAT
 
 # --- 4. DUAL BOOT ---
 if [[ "$DISK_MODE" == "1" ]]; then
