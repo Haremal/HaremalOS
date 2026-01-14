@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 cd "$(dirname "$0")"
+chmod +x ./*.sh
 
 # --- 1. PRE-FLIGHT ---
 if [ ! -d /sys/firmware/efi ]; then echo "Error: UEFI required."; exit 1; fi
@@ -49,9 +50,9 @@ arch-chroot /mnt /bin/bash <<EOF
   export I_UNITY="${I_UNITY}"
   export I_OBS="${I_OBS}"
   export I_ARDOUR="${I_ARDOUR}"
-  ./system_setup.sh
-  ./system_apps.sh
-  ./system_config.sh
+  /system_setup.sh
+  /system_apps.sh
+  /system_config.sh
 EOF
 
 rm /mnt/*.sh
