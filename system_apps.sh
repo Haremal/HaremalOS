@@ -13,21 +13,24 @@ pacman -S --noconfirm --needed \
 	xdg-desktop-portal-gtk xdg-utils hyprland-qt-support \
 	wayland wayland-protocols xorg-server-xwayland python \
 	polkit polkit-kde-agent gsettings-desktop-schemas \
-	qt5-wayland qt6-wayland base-devel gcc cmake socat git
-	
-# --- 2. THE HAERMALOS STACK (Core Apps) ---
+	qt5-wayland qt6-wayland base-devel gcc cmake socat git rustup
+
+# --- 2. FOR EWW TO WORK ---
+rustup default stable
+
+# --- 3. THE HAERMALOS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
 	ly hyprland swww hypridle hyprlock hyprcursor \
 	foot chafa neovim yazi fastfetch cava cmatrix tty-clock \
 	ffmpeg fd ripgrep p7zip unzip zip libnotify grim slurp wl-clipboard mpv \
-	eww-wayland-git brightnessctl playerctl lm_sensors papirus-icon-theme bibata-cursor-theme python-pywal
+	eww-git brightnessctl playerctl lm_sensors papirus-icon-theme bibata-cursor-theme python-pywal
 	
-# --- 3. LANGUAGES & DEV TOOLS ---
+# --- 4. LANGUAGES & DEV TOOLS ---
 pacman -S --noconfirm --needed \
-	ninja nlohmann-json sdbus-cpp rust jq \
+	ninja nlohmann-json sdbus-cpp jq \
     dotnet-sdk jdk-openjdk lua-language-server
 
-# --- 4. CHOSEN APPS ---
+# --- 5. CHOSEN APPS ---
 [[ "${I_STEAM}" =~ [Yy] ]] && pacman -S --noconfirm --needed steam
 [[ "${I_TOOLBOX}" =~ [Yy] ]] && pacman -S --noconfirm --needed jetbrains-toolbox
 [[ "${I_BLENDER}" =~ [Yy] ]] && pacman -S --noconfirm --needed blender
