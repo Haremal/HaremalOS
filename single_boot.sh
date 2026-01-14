@@ -1,5 +1,6 @@
 # --- 1. SAFETY CHECK ---
 read -p "Type 'YES' to WIPE $TARGET_DISK: " FINAL_CHECK
+[[ "$FINAL_CHECK" != "YES" ]] && exit 1
 
 # --- 2. CLEANUP & PARTITIONING ---
 swapoff -a 2>/dev/null || true
