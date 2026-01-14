@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
+cd "$(dirname "$0")"
 
 # --- 1. PRE-FLIGHT ---
 if [ ! -d /sys/firmware/efi ]; then echo "Error: UEFI required."; exit 1; fi
