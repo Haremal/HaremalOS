@@ -37,4 +37,4 @@ read -p "Do you wish to continue? (y/n): " CONFIRM_PARTS
 
 # --- 5. FORMATTING ---
 mkfs.ext4 -F "$ROOT_P"
-[[ "$FORMAT_HOME" =~ [Yy] ]] && mkfs.ext4 -F "$HOME_P"
+[[ "$FORMAT" =~ [Yy] ]] && mkfs.ext4 -F "$HOME_P"
