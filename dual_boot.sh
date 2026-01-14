@@ -12,8 +12,7 @@ ROOT_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "4f680000-0044-4453-80
 HOME_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "0fc63daf-8483-4772-8e79-3d69d8477de4" | awk '{print $1}' | tail -n 1) || true
 
 # --- 3. IF NOT FOUND, CREATE THEM ---
-if [ -z "$ROOT_P" ]; then
-    echo "No Linux partitions found. Creating them now..."
+if [ "$FORMAT" == "1" ]; then
     sfdisk "$TARGET_DISK" << EOF
 , $ROOT_SIZE, 4F680000-0044-4453-8061-616362657266
 , , 0FC63DAF-8483-4772-8E79-3D69D8477DE4
