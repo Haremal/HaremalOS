@@ -13,14 +13,16 @@ ROOT_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "4f680000-0044-4453-80
 if [ -z "$ROOT_P" ]; then
     echo "Fresh install: Creating new partitions..."
     wipefs -a "$TARGET_DISK"
-    sfdisk "$TARGET_DISK" << EOF
-label: gpt
+SFDISK_CMD="label: gpt
 size=512M, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B
 size=$ROOT_SIZE, type=4F680000-0044-4453-8061-616362657266
-type=0FC63DAF-8483-4772-8E79-3D69D8477DE4
-EOF
-    udevadm settle
+type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"
+
+    echo "$SFDISK_CMD" | sfdisk --force "$TARGET_DISK"
 fi
+udevadm settle
+partprobe "$TARGET_DISK"
+sleep 2
 
 # --- 4. DEFINE & FORMAT ---
 sleep 2
