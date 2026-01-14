@@ -35,6 +35,9 @@ echo "Identified HOME: $HOME_P"
 read -p "Do you wish to continue? (y/n): " CONFIRM_PARTS
 [[ "$CONFIRM_PARTS" != "y" ]] && exit 1
 
+umount -l "$ROOT_P" 2>/dev/null || true
+[[ -n "$HOME_P" ]] && umount -l "$HOME_P" 2>/dev/null || true
+
 # --- 5. FORMATTING ---
 mkfs.ext4 -F "$ROOT_P"
 [[ "$FORMAT" =~ [Yy] ]] && mkfs.ext4 -F "$HOME_P"
