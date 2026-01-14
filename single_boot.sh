@@ -11,6 +11,8 @@ sleep 2
 ROOT_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "4f680000-0044-4453-8061-616362657266" | awk '{print $1}' | tail -n 1) || true
 
 if [ -z "$ROOT_P" ]; then
+    echo "FNAF"
+    exit 1
     echo "Fresh install: Creating new partitions..."
     wipefs -a "$TARGET_DISK"
 SFDISK_CMD="label: gpt
