@@ -7,6 +7,7 @@ swapoff -a 2>/dev/null || true
 umount -R /mnt 2>/dev/null || true
 
 # --- 3. SEARCH OR CREATE ---
+sleep 2
 ROOT_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "4f680000-0044-4453-8061-616362657266" | awk '{print $1}' | tail -n 1) || true
 
 if [ -z "$ROOT_P" ]; then
