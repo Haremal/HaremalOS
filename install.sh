@@ -22,8 +22,8 @@ read -p "Install Ardour? (y/n) " I_ARDOUR
 echo "1) Wipe entire disk (Clean Install)"
 echo "2) Use free space (Keep existing OS/Windows)"
 read -p "Selection (Type 1 or 2): " DISK_MODE
-echo "1) Wipe the whole disk"
-echo "2. Format the root"
+echo "1) Wipe the whole disk (for fresh install)"
+echo "2. Format (keeps home safe if it exists)"
 read -p "Selection (Type 1 or 2): " FORMAT
 
 # --- 4. DUAL BOOT ---
