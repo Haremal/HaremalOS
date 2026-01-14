@@ -9,8 +9,7 @@ umount -R /mnt 2>/dev/null || true
 # --- 3. SEARCH OR CREATE ---
 sleep 2
 ROOT_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "4f680000-0044-4453-8061-616362657266" | awk '{print $1}' | tail -n 1) || true
-echo "FNAF"
-exit 1
+
 if [ -z "$ROOT_P" ]; then
     echo "Fresh install: Creating new partitions..."
     wipefs -a "$TARGET_DISK"
@@ -21,6 +20,9 @@ type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"
 
     echo "$SFDISK_CMD" | sfdisk --force "$TARGET_DISK"
 fi
+echo "FNAF"
+exit 1
+
 udevadm settle
 partprobe "$TARGET_DISK"
 sleep 2
