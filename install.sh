@@ -41,7 +41,7 @@ pacstrap -K /mnt base linux linux-firmware sudo curl wget amd-ucode bash-complet
 # --- 6. CHROOT HANDOFF ---
 genfstab -U /mnt >> /mnt/etc/fstab
 cp system_setup.sh system_apps.sh system_config.sh /mnt/
-chmod +x /tmp/HaremalOS/*.sh
+chmod +x /mnt/*.sh
 arch-chroot /mnt /bin/bash <<EOF
   export I_STEAM="${I_STEAM}"
   export I_TOOLBOX="${I_TOOLBOX}"
