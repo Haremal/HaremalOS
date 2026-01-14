@@ -13,7 +13,7 @@ HOME_P=$(lsblk "$TARGET_DISK" -no PATH,PARTTYPE | grep -i "0fc63daf-8483-4772-8e
 
 # --- 3. IF NOT FOUND, CREATE THEM ---
 if [ "$FORMAT" == "1" ]; then
-    sfdisk "$TARGET_DISK" << EOF
+    sfdisk --append "$TARGET_DISK" << EOF
 , $ROOT_SIZE, 4F680000-0044-4453-8061-616362657266
 , , 0FC63DAF-8483-4772-8E79-3D69D8477DE4
 EOF
@@ -24,7 +24,12 @@ else
 	echo "Existing Linux partitions found. Re-using $ROOT_P and $HOME_P."
 fi
 
-# --- 4. DETECT NEW PARTITIONS ---
+# --- 4. DETECT & CONFIRM ---
+if [ -z "$ROOT_P" ]; then
+    echo "CRITICAL ERROR: Root partition not found!"
+    exit 1
+fi
+
 echo "Identified ROOT: $ROOT_P"
 echo "Identified HOME: $HOME_P"
 read -p "Do you wish to continue? (y/n): " CONFIRM_PARTS
