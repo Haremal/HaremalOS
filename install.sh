@@ -10,19 +10,23 @@ read -p "TARGET DISK (e.g. sda or nvme0n1): " D_NAME
 TARGET_DISK="/dev/${D_NAME#/dev/}"
 
 # --- 3. SOFTWARE CHOICES ---
-read -p "Is this a Dual Boot? (y/n): " IS_DB
+read -p "Enter Root partition size (e.g., 100G or 50G): " ROOT_SIZE
+read -p "Format Home partition? (y/n): " FORMAT_HOME
 read -p "Install Steam? (y/n) " I_STEAM
 read -p "Install Toolbox? (y/n) " I_TOOLBOX
 read -p "Install Blender? (y/n) " I_BLENDER
 read -p "Install Unity? (y/n) " I_UNITY
 read -p "Install OBS? (y/n) " I_OBS
 read -p "Install Ardour? (y/n) " I_ARDOUR
+echo "1) Wipe entire disk (Clean Install)"
+echo "2) Use free space (Keep existing OS/Windows)"
+read -p "Selection: " DISK_MODE
 
 # --- 4. DUAL BOOT ---
-if [[ "$IS_DB" =~ [Yy] ]]; then
-    source ./dual_boot.sh
-else
+if [[ "$DISK_MODE" == "1" ]]; then
     source ./single_boot.sh
+else
+    source ./dual_boot.sh
 fi
 
 # --- 5. MOUNT & INSTALL ---
