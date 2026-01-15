@@ -20,7 +20,7 @@ rustup default stable
 
 # --- 3. THE HAERMALOS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
-	ly hyprland swww hypridle hyprlock hyprcursor \
+	ly hyprland mpvpaper hypridle hyprlock hyprcursor \
 	foot chafa neovim yazi fastfetch cava cmatrix tty-clock \
 	ffmpeg fd ripgrep p7zip unzip zip libnotify grim slurp wl-clipboard mpv \
 	eww-git brightnessctl playerctl lm_sensors papirus-icon-theme bibata-cursor-theme python-pywal
