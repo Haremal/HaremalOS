@@ -71,13 +71,14 @@ cat <<INI > /etc/ly/config.ini
 [server]
 session = hyprland
 animation = matrix
-bigclock = true
+cmatrix_fg = 0x01FF00FF
+cmatrix_head_col = 0x01FFFFFF
+full_color = true
+bigclock = en
 hide_borders = false
-[color]
-bg = 0
-fg = 6
 [auth]
 auth_root = true
+allow_empty_password = false
 INI
 # -----------------------------------------------------
 
