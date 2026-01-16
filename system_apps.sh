@@ -23,7 +23,7 @@ pacman -S --noconfirm --needed \
 	ly hyprland wpaperd hypridle hyprlock hyprcursor \
 	foot chafa neovim yazi fastfetch cava cmatrix tty-clock \
 	ffmpeg fd ripgrep p7zip unzip zip libnotify grim slurp wl-clipboard mpv \
-	eww-git brightnessctl playerctl lm_sensors papirus-icon-theme bibata-cursor-theme python-pywal
+	eww-git brightnessctl playerctl lm_sensors papirus-icon-theme bibata-cursor-theme wallust-git
 	
 # --- 4. LANGUAGES & DEV TOOLS ---
 pacman -S --noconfirm --needed \
