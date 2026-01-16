@@ -7,7 +7,7 @@ pacman -Syu --noconfirm
 pacman -S --noconfirm --needed \
 	mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon \
 	libva-mesa-driver lib32-libva-mesa-driver libva-utils \
-	pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber \
+	pipewire pipewire-pulse pipewire-alsa pipewire-jack \
 	networkmanager bluez bluez-utils glib2 fontconfig \
 	xdg-desktop-portal xdg-desktop-portal-hyprland gnome-keyring \
 	xdg-desktop-portal-gtk xdg-utils hyprland-qt-support \
@@ -22,7 +22,7 @@ rustup default stable
 pacman -S --noconfirm --needed \
 	ly hyprland wpaperd hypridle hyprlock hyprcursor \
 	foot chafa neovim yazi fastfetch cava cmatrix tty-clock \
-	ffmpeg fd ripgrep p7zip unzip zip libnotify grim slurp wl-clipboard mpv \
+	ffmpeg fd ripgrep p7zip unzip zip libnotify grim slurp wl-clipboard mpv wireplumber \
 	eww-git brightnessctl playerctl lm_sensors papirus-icon-theme bibata-cursor-theme wallust-git
 	
 # --- 4. LANGUAGES & DEV TOOLS ---
