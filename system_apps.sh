@@ -21,7 +21,7 @@ rustup default stable
 # --- 3. THE HAERMALOS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
 	lemurs niri wpaperd eww-git wallust-git hypridle hyprlock \
-	rio helix yazi fastfetch cava neo-matrix-git \
+	rio helix yazi fastfetch cava neo-matrix-git imagemagick \
 	mpv ffmpeg ouch grim slurp wl-clipboard-rs libnotify wireplumber \
 	brightnessctl lm_sensors fd ripgrep papirus-icon-theme bibata-cursor-theme 
 
