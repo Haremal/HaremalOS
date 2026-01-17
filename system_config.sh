@@ -65,21 +65,22 @@ bind = , XF86MonBrightnessUp, exec, brightnessctl set 5%+
 bind = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
 HYPR
 
-# Login Manager
-mkdir -p /etc/ly
-cat <<INI > /etc/ly/config.ini
-[server]
-session = hyprland
-animation = matrix
-cmatrix_fg = 0x01FF00FF
-cmatrix_head_col = 0x01FFFFFF
-full_color = true
-bigclock = en
-hide_borders = false
-[auth]
-auth_root = true
+cat <<SH > /etc/lemurs/wms/niri
+exec niri-session
+SH
+chmod +x /etc/lemurs/wms/niri
+
+# --- 2. CONFIG LEMURS (The "No Shits" way) ---
+# Lemurs usually just works, but we want it to allow root login 
+# like your /etc/issue instructions said.
+mkdir -p /etc/lemurs
+cat <<CONF > /etc/lemurs/config.toml
+# HAREMALOS Lemurs Config
 allow_empty_password = false
-INI
+# This ensures it picks up our Niri script first
+default_wm = "niri"
+focus_username = true
+CONF
 # -----------------------------------------------------
 
 
