@@ -9,31 +9,26 @@ pacman -S --noconfirm --needed \
 	libva-mesa-driver lib32-libva-mesa-driver libva-utils \
 	pipewire pipewire-pulse pipewire-alsa pipewire-jack \
 	networkmanager bluez bluez-utils glib2 fontconfig \
-	xdg-desktop-portal xdg-desktop-portal-hyprland gnome-keyring \
-	xdg-desktop-portal-gtk xdg-utils hyprland-qt-support \
-	wayland wayland-protocols xorg-server-xwayland python \
-	polkit polkit-kde-agent gsettings-desktop-schemas \
-	qt5-wayland qt6-wayland base-devel gcc cmake socat git rustup
+	xdg-desktop-portal xdg-desktop-portal-gnome \
+	wayland wayland-protocols xorg-server-xwayland \
+	polkit polkit-gnome gsettings-desktop-schemas \
+	gnome-keyring xdg-utils qt5-wayland qt6-wayland \
+	base-devel git rustup socat ninja jq
 
 # --- 2. FOR EWW TO WORK ---
 rustup default stable
 
 # --- 3. THE HAERMALOS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
-	ly hyprland wpaperd hypridle hyprlock hyprcursor \
-	foot chafa neovim yazi fastfetch cava cmatrix tty-clock \
-	ffmpeg fd ripgrep p7zip unzip zip libnotify grim slurp wl-clipboard mpv wireplumber \
-	eww-git brightnessctl playerctl lm_sensors papirus-icon-theme bibata-cursor-theme wallust-git
-	
-# --- 4. LANGUAGES & DEV TOOLS ---
-pacman -S --noconfirm --needed \
-	ninja nlohmann-json sdbus-cpp jq \
-    dotnet-sdk jdk-openjdk lua-language-server
+	lemurs niri wpaperd eww-git wallust-git hypridle hyprlock \
+	rio helix yazi fastfetch cava rmatrix-git \
+	mpv ffmpeg ouch grim slurp wl-clipboard-rs libnotify wireplumber \
+	brightnessctl lm_sensors fd ripgrep papirus-icon-theme bibata-cursor-theme 
 
-# --- 5. CHOSEN APPS ---
+# --- 4. CHOSEN APPS ---
 [[ "${I_STEAM}" =~ [Yy] ]] && pacman -S --noconfirm --needed steam
-[[ "${I_TOOLBOX}" =~ [Yy] ]] && pacman -S --noconfirm --needed jetbrains-toolbox
+# [[ "${I_TOOLBOX}" =~ [Yy] ]] && pacman -S --noconfirm --needed jetbrains-toolbox REPLACE WITH rust-analyzer or Zed
 [[ "${I_BLENDER}" =~ [Yy] ]] && pacman -S --noconfirm --needed blender
-[[ "$I_UNITY" =~ [Yy] ]] && pacman -S --noconfirm --needed unityhub
+# [[ "$I_UNITY" =~ [Yy] ]] && pacman -S --noconfirm --needed unityhub REPLACE WITH Bevy or Fyrox
 [[ "${I_OBS}" =~ [Yy] ]] && pacman -S --noconfirm --needed obs-studio
 [[ "${I_ARDOUR}" =~ [Yy] ]] && pacman -S --noconfirm --needed ardour
