@@ -86,20 +86,19 @@ INI
 
 
 
-# --- 1. CREATE HYPRLAND SESSION ---
+# --- 1. CREATE NIRI SESSION ---
 # Manually register the session in case the package didn't
 mkdir -p /usr/share/wayland-sessions
-cat <<ENTRY > /usr/share/wayland-sessions/hyprland.desktop
+cat <<ENTRY > /usr/share/wayland-sessions/niri.desktop
 [Desktop Entry]
-Name=Hyprland
-Comment=An intelligent dynamic tiling Wayland compositor
-Exec=Hyprland
+Name=Niri
+Comment=A scrollable-tiling Wayland compositor
+Exec=niri-session
 Type=Application
 ENTRY
 
 # --- 2. ENABLE SERVICES ---
-systemctl disable getty@tty2.service || true
-systemctl enable ly@tty2.service
+systemctl enable lemurs.service
 systemctl enable NetworkManager
 systemctl enable bluetooth.service
 systemctl enable fstrim.timer
