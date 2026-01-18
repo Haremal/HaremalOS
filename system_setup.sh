@@ -41,16 +41,14 @@ POLKIT
 # --- 5. THE SKELETON & ENVIRONMENT ---
 mkdir -p /etc/skel/Media/{Documents,Pictures,Videos,Music,Downloads} 
 mkdir -p /etc/skel/Settings/{Config,Data} /etc/skel/Projects
-
-cat <<PROFILE > /etc/skel/.bash_profile
-# --- CUSTOM PATHS ---
-export XDG_CONFIG_HOME="\$HOME/Settings/Config"
-export XDG_DATA_HOME="\$HOME/Settings/Data"
-export XDG_DOCUMENTS_DIR="\$HOME/Media/Documents"
-export XDG_PICTURES_DIR="\$HOME/Media/Pictures"
-export XDG_VIDEOS_DIR="\$HOME/Media/Videos"
-export XDG_MUSIC_DIR="\$HOME/Media/Music"
-export XDG_DOWNLOAD_DIR="\$HOME/Media/Downloads"
+cat <<PROFILE >> /etc/security/pam_env.conf
+XDG_CONFIG_HOME DEFAULT=@{HOME}/Settings/Config
+XDG_DATA_HOME DEFAULT=@{HOME}/Settings/Data
+XDG_DOCUMENTS_DIR DEFAULT=@{HOME}/Media/Documents
+XDG_PICTURES_DIR DEFAULT=@{HOME}/Media/Pictures
+XDG_VIDEOS_DIR DEFAULT=@{HOME}/Media/Videos
+XDG_MUSIC_DIR DEFAULT=@{HOME}/Media/Music
+XDG_DOWNLOAD_DIR DEFAULT=@{HOME}/Media/Downloads
 PROFILE
 
 # --- 6. XDG & USER ACCESS ---
