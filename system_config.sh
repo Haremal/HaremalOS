@@ -23,47 +23,101 @@ mkdir -p /usr/share/fonts/TTF
 curl -L -o /usr/share/fonts/TTF/Monocraft.ttc https://github.com/IdreesInc/Monocraft/releases/latest/download/Monocraft.ttc
 fc-cache -fv
 
-# Binds
-mkdir -p /etc/skel/Settings/Config/hypr
-cat <<HYPR > /etc/skel/Settings/Config/hypr/hyprland.conf
-monitor=, preferred, auto, 1
-# --- TOOLKITS & WAYLAND ---
-env = GDK_BACKEND,wayland,x11
-env = QT_QPA_PLATFORM,wayland;xcb
-env = SDL_VIDEODRIVER,wayland
-env = CLUTTER_BACKEND,wayland
-env = MOZ_ENABLE_WAYLAND,1
-# --- XDG COMPATIBILITY ---
-env = XDG_CURRENT_DESKTOP,Hyprland
-env = XDG_SESSION_TYPE,wayland
-env = XDG_SESSION_DESKTOP,Hyprland
-# --- Toolkit & UI Scaling ---
-env = GDK_SCALE,1
-env = QT_AUTO_SCREEN_SCALE_FACTOR,1
-env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
-env = QT_QPA_PLATFORMTHEME,qt6ct
-# --- GRAPHICS (AMD) ---
-env = LIBVA_DRIVER_NAME,radeonsi
-env = mesa_glthread,true # Optional: extra AMD performance
-# --- BACKEND SETTINGS---
-env = WINIT_UNIX_BACKEND,wayland
-env = HYPRCURSOR_THEME,Bibata-Modern-Classic
-env = HYPRCURSOR_SIZE,24
-env = XCURSOR_THEME,Bibata-Modern-Classic
-env = XCURSOR_SIZE,24
-exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec-once = /usr/lib/polkit-kde-authentication-agent-1
-exec-once = hypridle
-exec-once = wpaperd -d
-exec-once = eww daemon
-bind = SUPER_L, SPACE, exec, foot
-bind = , Print, exec, grim -g "\$(slurp)" - | wl-copy
-bind = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-bind = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bind = , XF86MonBrightnessUp, exec, brightnessctl set 5%+
-bind = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
-HYPR
+# --- 1. SET ENVIRONMENT VARIABLES ---
+# Niri cannot set these inside config.kdl, so we use the standard pam_env method.
+mkdir -p /etc/skel/Settings/Config/environment.d
+cat <<ENV > /etc/skel/Settings/Config/environment.d/haermalos.conf
+# Toolkits
+GDK_BACKEND=wayland,x11
+QT_QPA_PLATFORM=wayland;xcb
+SDL_VIDEODRIVER=wayland
+CLUTTER_BACKEND=wayland
+# Theming
+QT_QPA_PLATFORMTHEME=qt5ct
+XCURSOR_THEME=Bibata-Modern-Classic
+XCURSOR_SIZE=24
+# Graphics (AMD Optimized)
+LIBVA_DRIVER_NAME=radeonsi
+VDPAU_DRIVER=radeonsi
+mesa_glthread=true
+ENV
+
+# --- 2. NIRI CONFIGURATION ---
+mkdir -p /etc/skel/.config/niri
+cat <<NIRI > /etc/skel/.config/niri/config.kdl
+// --- HAERMALOS NIRI CONFIG ---
+
+input {
+    keyboard {
+        xkb {
+            layout "us"
+            // options "grp:win_space_toggle"
+        }
+    }
+    touchpad {
+        tap
+        dwt
+        natural-scroll
+    }
+}
+
+output {
+    // Defines the "First" monitor. 
+    // Niri auto-detects, but this forces scale/res if needed.
+    mode-action {
+        // mode "1920x1080@144.000"
+        scale 1.0
+    }
+}
+
+layout {
+    gaps 16
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        width 2
+        active-color "#7aa2f7"
+        inactive-color "#565f89"
+    }
+}
+
+// --- AUTOSTART ---
+spawn-at-startup "swww-daemon"
+spawn-at-startup "swww" "restore" // Restores previous wallpaper
+spawn-at-startup "eww" "daemon"
+spawn-at-startup "hypridle"
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
+
+// --- KEYBINDS ---
+binds {
+    // Basics
+    Mod+Shift+E { quit; }
+    Mod+Q { close-window; }
+    Mod+Space { spawn "rio"; }
+    Print { spawn "sh" "-c" "grim -g \"\$(slurp)\" - | wl-copy"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "5%+"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "5%-"; }
+    Mod+Left  { focus-column-left; }
+    Mod+Right { focus-column-right; }
+    Mod+WheelScrollDown { focus-column-right; }
+    Mod+WheelScrollUp   { focus-column-left; }
+    Mod+Ctrl+Left  { move-column-left; }
+    Mod+Ctrl+Right { move-column-right; }
+    Mod+F { maximize-column; }
+}
+NIRI
 
 cat <<SH > /etc/lemurs/wms/niri
 exec niri-session
