@@ -18,7 +18,7 @@ pacman -S --noconfirm --needed \
 # --- 2. FOR EWW TO WORK ---
 rustup default stable
 
-# --- 3. THE HAERMALOS STACK (Core Apps) ---
+# --- 3. THE HAREMAL OS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
 	lemurs niri swww eww-git wallust-git hypridle hyprlock \
 	rio helix yazi fastfetch cava neo-matrix-git imagemagick \
