@@ -12,8 +12,8 @@ Minimalistic Power Features<br>
 Simple Usage & Modern Look<br>
 All Apps Integrated With System<br>
 Lightweight OS & High Performance<br>
-Almost everything written in Rust<br>
-Controlled via ONE. SINGULAR. APP.<br>
+Almost Everything Written In Rust<br>
+Controlled Via ONE. SINGULAR. APP.<br>
 
 ## ✨ Key Features
 * **Compositor:** Niri (A Scrollable Tiling Wayland Compositor)
