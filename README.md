@@ -12,13 +12,14 @@ Minimalistic Power Features<br>
 Simple Usage & Modern Look<br>
 All Apps Integrated With System<br>
 Lightweight OS & High Performance<br>
+Everything written in a modern language Rust
 Everything controlled via ONE. SINGULAR. APP.<br>
 
 ## ✨ Key Features
-* **Compositor:** [Hyprland](https://hyprland.org/) (Dynamic Tiling Wayland Compositor)
+* **Compositor:** Niri (A Scrollable Tiling Wayland Compositor)
 * **Performance:** Hard-coded optimizations for **AMD CPUs** and **AMD GPUs** (Mesa/Vulkan).
-* **Workflow:** Terminal-centric with `Yazi`, `WezTerm`, and `Neovim`.
-* **Display Manager:** `Ly` TUI (on TTY2) for a lightweight login experience.
+* **Workflow:** Terminal-centric with `Yazi`, `Rio`, and `Helix`.
+* **Display Manager:** `Lemurs` TUI for a lightweight login experience.
 * **Organization:** Strict adherence to XDG path standards (Media/Settings separation).
 
 ## 🛠 Tech Stack
@@ -26,7 +27,7 @@ Everything controlled via ONE. SINGULAR. APP.<br>
 | :--- | :--- |
 | **Base** | Arch Linux |
 | **Shell** | Bash / Zsh |
-| **Terminal** | Foot |
+| **Terminal** | Rio |
 | **AUR Helper** | Chaotir-AUR |
 | **Audio** | Pipewire / Wireplumber |
 
