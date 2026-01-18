@@ -41,9 +41,11 @@ POLKIT
 # --- 5. THE SKELETON & ENVIRONMENT ---
 mkdir -p /etc/skel/Media/{Documents,Pictures,Videos,Music,Downloads} 
 mkdir -p /etc/skel/Settings/{Config,Data} /etc/skel/Projects
-cat <<PROFILE >> /etc/security/pam_env.conf
+cat <<SETTINGS >> /etc/security/pam_env.conf
 XDG_CONFIG_HOME DEFAULT=@{HOME}/Settings/Config
 XDG_DATA_HOME DEFAULT=@{HOME}/Settings/Data
+SETTINGS
+cat <<PROFILE >> /etc/skel/.bash
 XDG_DOCUMENTS_DIR DEFAULT=@{HOME}/Media/Documents
 XDG_PICTURES_DIR DEFAULT=@{HOME}/Media/Pictures
 XDG_VIDEOS_DIR DEFAULT=@{HOME}/Media/Videos
