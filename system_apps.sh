@@ -15,7 +15,7 @@ pacman -S --noconfirm --needed \
 	gnome-keyring xdg-utils qt5-wayland qt6-wayland \
 	base-devel git rustup socat ninja jq
 
-# --- 2. FOR EWW TO WORK ---
+# --- 2. RUST ---
 rustup default stable
 
 # --- 3. THE HAREMAL OS STACK (Core Apps) ---
