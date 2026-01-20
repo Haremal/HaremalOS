@@ -79,6 +79,8 @@ blacklist nvidia_drm
 blacklist nvidia_modeset
 NO_NVIDIA
 
+echo "KEYMAP=us" > /etc/vconsole.conf
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
 sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf kms block filesystems keyboard fsck)/' /etc/mkinitcpio.conf
 sed -i 's/^MODULES=.*/MODULES=(amdgpu)/' /etc/mkinitcpio.conf
 mkinitcpio -P
