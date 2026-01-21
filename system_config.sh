@@ -119,11 +119,6 @@ binds {
 }
 NIRI
 
-cat <<SH > /etc/lemurs/wms/niri
-exec niri-session
-SH
-chmod +x /etc/lemurs/wms/niri
-
 # --- 3. CONFIG RUST ---
 sudo mkdir -p /etc/skel/Settings/Config/helix /etc/skel/.cargo
 cat<<RUST > /etc/skel/Settings/Config/helix/languages.toml
@@ -140,8 +135,11 @@ rustflags = ["-C", "link-arg=-fuse-ld=mold"]
 CARGO
 
 # --- 4. CONFIG LEMURS ---
+cat <<SH > /etc/lemurs/wms/niri
+exec niri-session
+SH
+chmod +x /etc/lemurs/wms/niri
 # Lemurs usually just works, but we want it to allow root login 
-# like your /etc/issue instructions said.
 mkdir -p /etc/lemurs
 cat <<CONF > /etc/lemurs/config.toml
 # HAREMALOS Lemurs Config
