@@ -54,6 +54,7 @@ read -p "Install Steam? (y/n) " I_STEAM
 read -p "Install Blender? (y/n) " I_BLENDER
 read -p "Install OBS? (y/n) " I_OBS
 read -p "Install Ardour? (y/n) " I_ARDOUR
+read -p "Install Bitwarden? (y/n) " I_BITWARDEN
 pacstrap -K /mnt base linux linux-firmware sudo curl wget amd-ucode bash-completion --noconfirm --needed
 
 # --- 7. CHROOT HANDOFF ---
@@ -62,11 +63,10 @@ cp system_setup.sh system_apps.sh system_config.sh /mnt/
 chmod +x /mnt/*.sh
 arch-chroot /mnt /bin/bash <<EOF
   export I_STEAM="${I_STEAM}"
-  export I_TOOLBOX="${I_TOOLBOX}"
   export I_BLENDER="${I_BLENDER}"
-  export I_UNITY="${I_UNITY}"
   export I_OBS="${I_OBS}"
   export I_ARDOUR="${I_ARDOUR}"
+  export I_ARDOUR="${I_BITWARDEN}"
   /system_setup.sh
   /system_apps.sh
   /system_config.sh
