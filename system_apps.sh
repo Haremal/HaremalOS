@@ -31,9 +31,9 @@ pacman -S --noconfirm --needed \
 	brightnessctl lm_sensors fd ripgrep papirus-icon-theme bibata-cursor-theme 
 
 # --- 4. CHOSEN APPS ---
-[[ "${I_STEAM}" =~ [Yy] ]] && pacman -S --noconfirm --needed steam
-[[ "${I_BLENDER}" =~ [Yy] ]] && pacman -S --noconfirm --needed blender
-[[ "${I_FYROX}" =~ [Yy] ]] && cargo install fyrox-project-manager
-[[ "${I_OBS}" =~ [Yy] ]] && pacman -S --noconfirm --needed obs-studio
-[[ "${I_ARDOUR}" =~ [Yy] ]] && pacman -S --noconfirm --needed ardour
-[[ "${I_BITWARDEN}" =~ [Yy] ]] && pacman -S --noconfirm --needed bitwarden bitwarden-cli
+[[ "${I_STEAM:-N}" =~ [Yy] ]] && pacman -S --noconfirm --needed steam
+[[ "${I_BLENDER:-N}" =~ [Yy] ]] && pacman -S --noconfirm --needed blender
+[[ "${I_FYROX:-N}" =~ [Yy] ]] && cargo install fyrox-project-manager
+[[ "${I_OBS:-N}" =~ [Yy] ]] && pacman -S --noconfirm --needed obs-studio
+[[ "${I_ARDOUR:-N}" =~ [Yy] ]] && pacman -S --noconfirm --needed ardour
+[[ "${I_BITWARDEN:-N}" =~ [Yy] ]] && pacman -S --noconfirm --needed bitwarden bitwarden-cli
