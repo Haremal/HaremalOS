@@ -33,7 +33,7 @@ pacman -S --noconfirm --needed \
 # --- 4. CHOSEN APPS ---
 [[ "${I_STEAM}" =~ [Yy] ]] && pacman -S --noconfirm --needed steam
 [[ "${I_BLENDER}" =~ [Yy] ]] && pacman -S --noconfirm --needed blender
-[[ "${I_FYROX}" =~ [Yy] ]] && cargo install fyrox-template
+[[ "${I_FYROX}" =~ [Yy] ]] && cargo install fyrox-project-manager
 [[ "${I_OBS}" =~ [Yy] ]] && pacman -S --noconfirm --needed obs-studio
 [[ "${I_ARDOUR}" =~ [Yy] ]] && pacman -S --noconfirm --needed ardour
 [[ "${I_BITWARDEN}" =~ [Yy] ]] && pacman -S --noconfirm --needed bitwarden bitwarden-cli
