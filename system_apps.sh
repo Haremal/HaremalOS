@@ -17,6 +17,8 @@ pacman -S --noconfirm --needed \
 
 # --- 2. RUST ---
 rustup default stable
+rustup component add clippy rustfmt rust-analyzer
+cargo install dioxus-cli cargo-watch
 
 # --- 3. THE HAREMAL OS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
@@ -27,7 +29,6 @@ pacman -S --noconfirm --needed \
 
 # --- 4. CHOSEN APPS ---
 [[ "${I_STEAM}" =~ [Yy] ]] && pacman -S --noconfirm --needed steam
-# [[ "${I_TOOLBOX}" =~ [Yy] ]] && pacman -S --noconfirm --needed jetbrains-toolbox REPLACE WITH rust-analyzer
 [[ "${I_BLENDER}" =~ [Yy] ]] && pacman -S --noconfirm --needed blender
 # [[ "$I_UNITY" =~ [Yy] ]] && pacman -S --noconfirm --needed unityhub REPLACE WITH Bevy or Fyrox
 [[ "${I_OBS}" =~ [Yy] ]] && pacman -S --noconfirm --needed obs-studio
