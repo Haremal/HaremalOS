@@ -74,5 +74,9 @@ arch-chroot /mnt /bin/bash <<EOF
   /system_config.sh
 EOF
 
+echo 'export CARGO_HOME="/opt/cargo"' > /mnt/etc/profile.d/cargo.sh
+echo 'export PATH="/opt/cargo/bin:$PATH"' >> /mnt/etc/profile.d/cargo.sh
+chmod +x /mnt/etc/profile.d/cargo.sh
+
 rm /mnt/*.sh
 echo "SUCCESS: Fresh install complete."
