@@ -124,7 +124,22 @@ exec niri-session
 SH
 chmod +x /etc/lemurs/wms/niri
 
-# --- 2. CONFIG LEMURS (The "No Shits" way) ---
+# --- 3. CONFIG RUST ---
+sudo mkdir -p /etc/skel/Settings/Config/helix /etc/skel/.cargo
+cat<<RUST > /etc/skel/Settings/Config/helix/languages.toml
+[[language]]
+name = "rust"
+auto-format = true
+[language-server.rust-analyzer.config.check]
+command = "clippy"
+RUST
+cat<<CARGO > /etc/skel/.cargo/config.toml
+[target.x86_64-unknown-linux-gnu]
+linker = "clang"
+rustflags = ["-C", "link-arg=-fuse-ld=mold"]
+CARGO
+
+# --- 4. CONFIG LEMURS ---
 # Lemurs usually just works, but we want it to allow root login 
 # like your /etc/issue instructions said.
 mkdir -p /etc/lemurs
