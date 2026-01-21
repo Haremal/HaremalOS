@@ -12,18 +12,19 @@ pacman -S --noconfirm --needed \
 	xdg-desktop-portal xdg-desktop-portal-gnome \
 	wayland wayland-protocols xorg-server-xwayland \
 	polkit polkit-gnome gsettings-desktop-schemas \
-	gnome-keyring xdg-utils qt5-wayland qt6-wayland \
-	base-devel git rustup socat ninja jq
+	gnome-keyring xdg-utils qt5-wayland qt6-wayland
 
 # --- 2. RUST ---
-rustup default stable
-rustup component add clippy rustfmt rust-analyzer
-cargo install dioxus-cli cargo-watch
+pacman -S --noconfirm --needed \
+	base-devel git socat ninja jq zellij \
+	rust rust-analyzer clippy clang mold
+	
+cargo install --root /usr/local dioxus-cli cargo-watch cargo-bundle
 
 # --- 3. THE HAREMAL OS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
 	lemurs niri swww eww-git wallust-git hypridle hyprlock \
-	rio helix yazi fastfetch cava neo-matrix-git imagemagick \
+	rio helix yazi imagemagick fastfetch cava neo-matrix-git \
 	mpv ffmpeg ouch grim slurp wl-clipboard-rs libnotify wireplumber \
 	brightnessctl lm_sensors fd ripgrep papirus-icon-theme bibata-cursor-theme 
 
