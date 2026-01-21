@@ -18,8 +18,10 @@ pacman -S --noconfirm --needed \
 pacman -S --noconfirm --needed \
 	base-devel git socat ninja jq zellij \
 	rust rust-analyzer clippy clang mold
-	
-cargo install --root /usr/local dioxus-cli cargo-watch cargo-bundle
+
+export CARGO_HOME="/opt/cargo"
+export PATH="$CARGO_HOME/bin:$PATH"
+cargo install dioxus-cli cargo-watch cargo-bundle
 
 # --- 3. THE HAREMAL OS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
@@ -31,7 +33,7 @@ pacman -S --noconfirm --needed \
 # --- 4. CHOSEN APPS ---
 [[ "${I_STEAM}" =~ [Yy] ]] && pacman -S --noconfirm --needed steam
 [[ "${I_BLENDER}" =~ [Yy] ]] && pacman -S --noconfirm --needed blender
-[[ "${I_FYROX}" =~ [Yy] ]] && cargo install --root /usr/local fyrox-template
+[[ "${I_FYROX}" =~ [Yy] ]] && cargo install fyrox-template
 [[ "${I_OBS}" =~ [Yy] ]] && pacman -S --noconfirm --needed obs-studio
 [[ "${I_ARDOUR}" =~ [Yy] ]] && pacman -S --noconfirm --needed ardour
 [[ "${I_BITWARDEN}" =~ [Yy] ]] && pacman -S --noconfirm --needed bitwarden bitwarden-cli
