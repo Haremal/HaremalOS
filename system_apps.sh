@@ -11,8 +11,8 @@ pacman -S --noconfirm --needed \
 	networkmanager bluez bluez-utils glib2 fontconfig \
 	xdg-desktop-portal xdg-desktop-portal-gnome \
 	wayland wayland-protocols xorg-server-xwayland \
-	polkit polkit-gnome gsettings-desktop-schemas \
-	gnome-keyring xdg-utils qt5-wayland qt6-wayland
+	polkit hyprpolkitagent gsettings-desktop-schemas \
+	libsecret gnome-keyring xdg-utils qt5-wayland qt6-wayland
 
 # --- 2. RUST ---
 pacman -S --noconfirm --needed \
@@ -31,7 +31,7 @@ pacman -S --noconfirm --needed \
 # --- 4. CHOSEN APPS ---
 [[ "${I_STEAM}" =~ [Yy] ]] && pacman -S --noconfirm --needed steam
 [[ "${I_BLENDER}" =~ [Yy] ]] && pacman -S --noconfirm --needed blender
-# [[ "$I_UNITY" =~ [Yy] ]] && pacman -S --noconfirm --needed unityhub REPLACE WITH Bevy or Fyrox
+[[ "$I_FYROX" =~ [Yy] ]] && cargo install --root /usr/local fyrox-template
 [[ "${I_OBS}" =~ [Yy] ]] && pacman -S --noconfirm --needed obs-studio
 [[ "${I_ARDOUR}" =~ [Yy] ]] && pacman -S --noconfirm --needed ardour
 [[ "${I_BITWARDEN}" =~ [Yy] ]] && pacman -S --noconfirm --needed bitwarden bitwarden-cli
