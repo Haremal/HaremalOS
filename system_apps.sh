@@ -33,3 +33,4 @@ pacman -S --noconfirm --needed \
 # [[ "$I_UNITY" =~ [Yy] ]] && pacman -S --noconfirm --needed unityhub REPLACE WITH Bevy or Fyrox
 [[ "${I_OBS}" =~ [Yy] ]] && pacman -S --noconfirm --needed obs-studio
 [[ "${I_ARDOUR}" =~ [Yy] ]] && pacman -S --noconfirm --needed ardour
+[[ "${I_BITWARDEN}" =~ [Yy] ]] && pacman -S --noconfirm --needed bitwarden bitwarden-cli
