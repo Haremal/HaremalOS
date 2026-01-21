@@ -134,20 +134,6 @@ linker = "clang"
 rustflags = ["-C", "link-arg=-fuse-ld=mold"]
 CARGO
 
-# --- 4. CONFIG LEMURS ---
-cat <<SH > /etc/lemurs/wms/niri
-exec niri-session
-SH
-chmod +x /etc/lemurs/wms/niri
-# Lemurs usually just works, but we want it to allow root login 
-mkdir -p /etc/lemurs
-cat <<CONF > /etc/lemurs/config.toml
-# HAREMALOS Lemurs Config
-allow_empty_password = false
-# This ensures it picks up our Niri script first
-default_wm = "niri"
-focus_username = true
-CONF
 # -----------------------------------------------------
 
 
@@ -165,19 +151,34 @@ Exec=niri-session
 Type=Application
 ENTRY
 
-# --- 2. ENABLE SERVICES ---
+# --- 2. CONFIG LEMURS ---
+cat <<SH > /etc/lemurs/wms/niri
+exec niri-session
+SH
+chmod +x /etc/lemurs/wms/niri
+# Lemurs usually just works, but we want it to allow root login 
+mkdir -p /etc/lemurs
+cat <<CONF > /etc/lemurs/config.toml
+# HAREMALOS Lemurs Config
+allow_empty_password = false
+# This ensures it picks up our Niri script first
+default_wm = "niri"
+focus_username = true
+CONF
+
+# --- 3. ENABLE SERVICES ---
 systemctl enable lemurs.service
 systemctl enable NetworkManager
 systemctl enable bluetooth.service
 systemctl enable fstrim.timer
 sed -i 's/#AutoEnable=false/AutoEnable=true/' /etc/bluetooth/main.conf 2>/dev/null || true
 
-# --- 3. DETECT SENSORS ---
+# --- 4. DETECT SENSORS ---
 if [ -d /sys/class/dmi ]; then
     yes | sensors-detect --auto > /dev/null 2>&1 || true
 fi
 
-# --- 4. FIRST BOOT ---
+# --- 5. FIRST BOOT ---
 passwd -d root
 chage -d 0 root
 cat <<ISSUE > /etc/issue
