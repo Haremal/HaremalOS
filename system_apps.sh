@@ -16,8 +16,8 @@ pacman -S --noconfirm --needed \
 
 # --- 2. RUST ---
 pacman -S --noconfirm --needed \
-	base-devel git socat ninja jq zellij \
-	rust rust-analyzer clippy clang mold
+	base-devel git socat ninja jq \
+	rust rust-analyzer clang mold
 
 export CARGO_HOME="/opt/cargo"
 export PATH="$CARGO_HOME/bin:$PATH"
@@ -26,7 +26,7 @@ cargo install dioxus-cli cargo-watch cargo-bundle
 # --- 3. THE HAREMAL OS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
 	lemurs niri swww eww-git wallust-git hypridle hyprlock \
-	rio helix yazi imagemagick fastfetch cava neo-matrix-git \
+	rio helix zellij yazi imagemagick fastfetch cava neo-matrix-git \
 	mpv ffmpeg ouch grim slurp wl-clipboard-rs libnotify wireplumber \
 	brightnessctl lm_sensors fd ripgrep papirus-icon-theme bibata-cursor-theme 
 
