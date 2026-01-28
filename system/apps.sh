@@ -28,7 +28,8 @@ pacman -S --noconfirm --needed \
 	lemurs niri swww eww-git wallust-git hypridle hyprlock \
 	rio helix zellij yazi imagemagick fastfetch cava neo-matrix-git \
 	mpv ffmpeg ouch grim slurp wl-clipboard-rs libnotify wireplumber \
-	brightnessctl lm_sensors fd ripgrep papirus-icon-theme bibata-cursor-theme 
+	brightnessctl lm_sensors fd ripgrep papirus-icon-theme bibata-cursor-theme \
+	pinta
 
 # --- 4. CHOSEN APPS ---
 [[ "${I_STEAM:-N}" =~ [Yy] ]] && pacman -S --noconfirm --needed steam
