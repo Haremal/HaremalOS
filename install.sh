@@ -60,7 +60,7 @@ pacstrap -K /mnt base linux linux-firmware sudo curl wget amd-ucode bash-complet
 
 # --- 7. CHROOT HANDOFF ---
 genfstab -U /mnt >> /mnt/etc/fstab
-cp system_setup.sh system_apps.sh system_config.sh /mnt/
+cp system/setup.sh system/apps.sh system/config.sh /mnt/
 chmod +x /mnt/*.sh
 arch-chroot /mnt /bin/bash <<EOF
   export I_STEAM="${I_STEAM}"
@@ -69,9 +69,9 @@ arch-chroot /mnt /bin/bash <<EOF
   export I_OBS="${I_OBS}"
   export I_ARDOUR="${I_ARDOUR}"
   export I_BITWARDEN="${I_BITWARDEN}"
-  /system_setup.sh
-  /system_apps.sh
-  /system_config.sh
+  /setup.sh
+  /apps.sh
+  /config.sh
 EOF
 
 echo 'export CARGO_HOME="/opt/cargo"' > /mnt/etc/profile.d/cargo.sh
