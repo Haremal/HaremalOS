@@ -28,10 +28,10 @@ pacman -S --noconfirm --needed \
 	lemurs niri swww eww-git wallust-git hypridle hyprlock \
 	rio helix zellij yazi bottom cava neo-matrix-git \
 	mpv ffmpeg ouch grim slurp wl-clipboard-rs libnotify wireplumber \
-	brightnessctl lm_sensors fd ripgrep papirus-icon-theme bibata-cursor-theme \
-	pinta
+	brightnessctl lm_sensors fd ripgrep papirus-icon-theme bibata-cursor-theme
 
 # --- 4. CHOSEN APPS ---
+pacman -S --noconfirm --needed pinta
 [[ "${I_STEAM:-N}" =~ [Yy] ]] && pacman -S --noconfirm --needed steam
 [[ "${I_BLENDER:-N}" =~ [Yy] ]] && pacman -S --noconfirm --needed blender
 [[ "${I_FYROX:-N}" =~ [Yy] ]] && cargo install fyrox-project-manager
