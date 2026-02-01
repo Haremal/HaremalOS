@@ -12,8 +12,7 @@ pacman -S --noconfirm --needed \
 	xdg-desktop-portal xdg-desktop-portal-gnome \
 	wayland wayland-protocols xorg-server-xwayland \
 	polkit hyprpolkitagent gsettings-desktop-schemas \
-	libsecret gnome-keyring webkit2gtk-4.1 xdg-utils \
-	qt5-wayland qt6-wayland
+	libsecret gnome-keyring xdg-utils qt5-wayland qt6-wayland
 
 # --- 2. RUST ---
 pacman -S --noconfirm --needed \
