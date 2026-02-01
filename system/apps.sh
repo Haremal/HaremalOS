@@ -22,6 +22,10 @@ pacman -S --noconfirm --needed \
 export CARGO_HOME="/opt/cargo"
 export PATH="$CARGO_HOME/bin:$PATH"
 cargo install dioxus-cli cargo-watch cargo-bundle
+chgrp -R users /opt/cargo
+chmod -R g+w /opt/cargo
+chmod -R 2775 /opt/cargo
+chmod -R a+rx /opt/cargo/bin/
 
 # --- 3. THE HAREMAL OS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
