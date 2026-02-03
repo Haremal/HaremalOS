@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# ------------- REPLACE WITH AN APP LATER -------------
+# ------------- REPLACE SOME WITH AN APP LATER AND SOME WITH THE ACTUAL GOOD CONFIG -------------
 # System Config
 ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 hwclock --systohc
