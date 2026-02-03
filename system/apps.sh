@@ -10,7 +10,7 @@ pacman -S --noconfirm --needed \
 	pipewire pipewire-pulse pipewire-alsa pipewire-jack \
 	networkmanager bluez bluez-utils glib2 fontconfig \
 	xdg-desktop-portal xdg-desktop-portal-gnome \
-	wayland wayland-protocols xorg-server-xwayland \
+	wayland wayland-protocols xorg-server-xwayland xwayland-satellite \
 	polkit hyprpolkitagent gsettings-desktop-schemas \
 	libsecret gnome-keyring xdg-utils qt5-wayland qt6-wayland
 
@@ -36,7 +36,7 @@ pacman -S --noconfirm --needed \
 
 # --- 4. CHOSEN APPS ---
 pacman -S --noconfirm --needed pinta
-[[ "${I_STEAM:-N}" =~ [Yy] ]] && pacman -S --noconfirm --needed steam
+[[ "${I_STEAM:-N}" =~ [Yy] ]] && pacman -S --noconfirm --needed steam gamescope
 [[ "${I_BLENDER:-N}" =~ [Yy] ]] && pacman -S --noconfirm --needed blender
 [[ "${I_FYROX:-N}" =~ [Yy] ]] && cargo install fyrox-project-manager
 [[ "${I_OBS:-N}" =~ [Yy] ]] && pacman -S --noconfirm --needed obs-studio
