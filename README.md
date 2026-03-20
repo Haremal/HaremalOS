@@ -21,6 +21,7 @@ Controlled Via ONE. SINGULAR. APP.<br>
 * **Workflow:** Terminal-centric with `Yazi`, `Rio`, and `Helix`.
 * **Display Manager:** `Lemurs` TUI for a lightweight login experience.
 * **Organization:** Strict adherence to XDG path standards (Media/Settings separation).
+* **Stability:** Fuck Nvidia
 
 ## 🛠 Tech Stack
 | Component | Choice |
