@@ -43,7 +43,7 @@ mesa_glthread=true
 ENV
 
 # --- 2. NIRI CONFIGURATION ---
-mkdir -p /etc/skel/.config/niri
+mkdir -p /etc/skel/Settings/Config/niri
 cat <<NIRI > /etc/skel/.config/niri/config.kdl
 // --- HAERMALOS NIRI CONFIG ---
 
