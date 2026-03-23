@@ -17,7 +17,7 @@ pacman -S --noconfirm --needed \
 # --- 2. RUST ---
 pacman -S --noconfirm --needed \
 	base-devel git socat ninja jq \
-	rust rust-analyzer clang mold
+	rust rust-analyzer clang mold xdotool
 
 export CARGO_HOME="/opt/cargo"
 export PATH="$CARGO_HOME/bin:$PATH"
