@@ -25,6 +25,7 @@ cargo install dioxus-cli cargo-watch cargo-bundle
 chgrp -R users /opt/cargo
 chmod -R g+w /opt/cargo
 chmod -R 2775 /opt/cargo
+chmod -R -s /opt/cargo/bin/
 chmod -R a+rx /opt/cargo/bin/
 
 # --- 3. THE HAREMAL OS STACK (Core Apps) ---
