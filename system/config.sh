@@ -26,7 +26,7 @@ fc-cache -fv
 # --- 1. SET ENVIRONMENT VARIABLES ---
 # Niri cannot set these inside config.kdl, so we use the standard pam_env method.
 mkdir -p /etc/skel/Settings/Config/environment.d
-cat <<ENV > /etc/skel/Settings/Config/environment.d/haermalos.conf
+cat <<ENV > /etc/skel/Settings/Config/environment.d/haremalos.conf
 # Toolkits
 GDK_BACKEND=wayland,x11
 QT_QPA_PLATFORM=wayland;xcb
