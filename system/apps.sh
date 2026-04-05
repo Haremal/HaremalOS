@@ -30,7 +30,7 @@ chmod -R a+rx /opt/cargo/bin/
 
 # --- 3. THE HAREMAL OS STACK (Core Apps) ---
 pacman -S --noconfirm --needed \
-	lemurs niri swww eww-git wallust-git hypridle hyprlock \
+	ly niri swww eww-git wallust-git hypridle hyprlock \
 	rio helix zellij yazi bottom cava neo-matrix-git \
 	mpv ffmpeg ouch grim slurp wl-clipboard-rs libnotify wireplumber \
 	brightnessctl lm_sensors fd ripgrep papirus-icon-theme bibata-cursor-theme
