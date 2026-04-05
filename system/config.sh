@@ -144,15 +144,24 @@ Exec=niri-session
 Type=Application
 ENTRY
 
-# --- 2. CONFIG LY ---
+# --- 2. CONFIG LY (VIOLET MATRIX + NIRI) ---
 mkdir -p /etc/ly
 cat <<LY > /etc/ly/config.ini
 animate = true
-animation = 0
-tty = 2
+animation = matrix
+cmatrix_fg = 0x008833FF
+cmatrix_head_col = 0x00B38BFF
+cmatrix_min_codepoint = 0x21
+cmatrix_max_codepoint = 0x7B
+bigclock = en
+bigclock_12hr = true
+battery_id = BAT0
 save = true
 load = true
+tty = 2
 wayland_cmd = niri-session
+full_color = true
+default_input = password
 LY
 
 # --- 3. ENABLE SERVICES ---
