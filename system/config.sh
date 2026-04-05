@@ -24,7 +24,6 @@ curl -L -o /usr/share/fonts/TTF/Monocraft.ttc https://github.com/IdreesInc/Monoc
 fc-cache -fv
 
 # --- 1. SET ENVIRONMENT VARIABLES ---
-# Niri cannot set these inside config.kdl, so we use the standard pam_env method.
 mkdir -p /etc/skel/Settings/Config/environment.d
 cat <<ENV > /etc/skel/Settings/Config/environment.d/haremalos.conf
 # Toolkits
