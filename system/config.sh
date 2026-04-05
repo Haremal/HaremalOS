@@ -50,7 +50,6 @@ input {
     keyboard {
         xkb {
             layout "us"
-            // options "grp:win_space_toggle"
         }
     }
     touchpad {
@@ -61,10 +60,7 @@ input {
 }
 
 output {
-    // Defines the "First" monitor. 
-    // Niri auto-detects, but this forces scale/res if needed.
     mode-action {
-        // mode "1920x1080@144.000"
         scale 1.0
     }
 }
@@ -89,16 +85,14 @@ layout {
 }
 
 // --- AUTOSTART ---
-spawn-at-startup "swww-daemon"
-spawn-at-startup "swww" "restore" // Restores previous wallpaper
+spawn-at-startup "awww-daemon"
 spawn-at-startup "eww" "daemon"
 spawn-at-startup "hypridle"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP=niri"
 
 // --- KEYBINDS ---
 binds {
-    // Basics
     Mod+Shift+E { quit; }
     Mod+Q { close-window; }
     Mod+Space { spawn "rio"; }
@@ -150,23 +144,20 @@ Exec=niri-session
 Type=Application
 ENTRY
 
-# --- 2. CONFIG LEMURS ---
-cat <<SH > /etc/lemurs/wms/niri
-exec niri-session
-SH
-chmod +x /etc/lemurs/wms/niri
-# Lemurs usually just works, but we want it to allow root login 
-mkdir -p /etc/lemurs
-cat <<CONF > /etc/lemurs/config.toml
-# HAREMALOS Lemurs Config
-allow_empty_password = false
-# This ensures it picks up our Niri script first
-default_wm = "niri"
-focus_username = true
-CONF
+# --- 2. CONFIG LY ---
+mkdir -p /etc/ly
+cat <<LY > /etc/ly/config.ini
+animate = true
+animation = 0
+tty = 2
+save = true
+load = true
+wayland_cmd = niri-session
+LY
 
 # --- 3. ENABLE SERVICES ---
-systemctl enable lemurs.service
+systemctl disable getty@tty2.service
+systemctl enable ly@tty2.service
 systemctl enable NetworkManager
 systemctl enable bluetooth.service
 systemctl enable fstrim.timer
